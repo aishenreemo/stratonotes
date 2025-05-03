@@ -53,3 +53,7 @@ button:focus-visible {
         background-color: #f9f9f9;
     }
 }
+
+.markdown-body {
+    background-color: transparent !important;
+}
