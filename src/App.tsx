@@ -24,7 +24,7 @@ function App() {
                 }}
                 className={[
                     "w-full h-full rounded-sm max-w-screen max-h-screen",
-                    "border border-white grid",
+                    "border grid",
                 ].join(" ")}
             >
                 <Header
