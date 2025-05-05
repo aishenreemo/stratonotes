@@ -26,6 +26,15 @@ function Editor({
                     <MarkdownPreview
                         source={markdown}
                         style={{ backgroundColor: "transparent" }}
+                        rehypeRewrite={(node, _, parent) => {
+                            if (
+                                (node as any).tagName === "a" &&
+                                parent &&
+                                /^h(1|2|3|4|5|6)/.test((parent as any).tagName)
+                            ) {
+                                parent.children = parent.children.slice(1);
+                            }
+                        }}
                     />
                 </div>
             )}
