@@ -23,7 +23,7 @@ function Editor() {
                             payload: "READING",
                         })
                     }
-                    className="markdown-body w-full h-full border p-4 overflowy-auto"
+                    className="markdown-body w-full h-full border p-4 overflow-y-auto"
                 >
                     <MarkdownPreview
                         source={markdown}

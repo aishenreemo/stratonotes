@@ -1,9 +1,11 @@
 # Stratonotes
+
 Your personalized atmosphere for productive growth.
 
 ## Building
 
 ### Prerequisites
+
 - git
 - yarn
 

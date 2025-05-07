@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.4",
+        "@tauri-apps/plugin-fs": "^2.2.1",
         "@uiw/react-markdown-preview": "^5.1.4",
         "re-resizable": "^6.11.2",
         "react": "^19.0.0",
