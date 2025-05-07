@@ -1,11 +1,9 @@
 # Stratonotes
-
 Your personalized atmosphere for productive growth.
 
 ## Building
 
 ### Prerequisites
-
 - git
 - yarn
 
@@ -15,5 +13,5 @@ Your personalized atmosphere for productive growth.
 git clone https://github.com/aishenreemo/stratonotes
 cd stratonotes
 yarn
-yarn dev
+yarn tauri dev
 ```
