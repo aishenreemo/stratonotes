@@ -1,19 +1,18 @@
-import { ReactNode } from 'react'
+    import { ReactNode } from 'react'
 
-function NoteToolbar({ children }: { children?: ReactNode }) {
-  return (
-    <div className={[
-        "flex",
-        "flex-row",
-        "items-center",
-        "justify-around",
-        "gap-2",
-        "border",
-        "border-black",
-        "w-auto"].join(" ")}>
-      {children}
-    </div>
-  )
-}
+    function NoteToolbar({ children }: { children?: ReactNode }) {
+    return (
+        <div className={[
+            "flex",
+            "justify-evenly",
+            "gap-2",
+            "w-auto",
+            "p-1",
+            "h-10"
+            ].join(" ")}>
+        {children}
+        </div>
+    )
+    }
 
-export default NoteToolbar
+    export default NoteToolbar

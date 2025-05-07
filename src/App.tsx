@@ -1,4 +1,6 @@
 import { IoCalendarNumberSharp } from "react-icons/io5";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { MdNoteAdd } from "react-icons/md";
 import { HiSave } from "react-icons/hi";
 import { IoIosSettings } from "react-icons/io";
 import { GoNote } from "react-icons/go";
@@ -12,6 +14,7 @@ import Editor from "./components/Editor";
 import Calendar from "react-calendar";
 import { useEditorMode } from "./contexts/EditorModeContext";
 import NoteToolbar from "./components/NoteToolbar";
+import Searchbar from "./components/Searchbar";
 
 function App() {
     let editorMode = useEditorMode();
@@ -51,21 +54,16 @@ function App() {
                     </button>
                 </Ribbons>
                 <Sidebar anchor="LEFT">
-                    <div>
-                        <p>search bar test</p>
-                    </div>
-                    <div>
-                        <p>graph view</p>
-                    </div>
+                    <Searchbar />
                     <NoteToolbar>
-                        <button>
+                        <button title="Save note" className="flex flex-grow justify-center items-center">
                             <HiSave />
                         </button>
-                        <button>
-                            <HiSave />
+                        <button title="Delete note" className="flex flex-grow justify-center items-center">
+                            <RiDeleteBin5Line />
                         </button>
-                        <button>
-                            <HiSave />
+                        <button title="Create new note" className="flex flex-grow justify-center items-center">
+                            <MdNoteAdd />
                         </button>
                     </NoteToolbar>
                     <div className=''>
