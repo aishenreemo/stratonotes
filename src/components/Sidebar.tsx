@@ -17,7 +17,17 @@ function Sidebar({
 
     return (
         <Resizable
-            className="box-border border transition-all 0.05s overflow-hidden"
+            className={[
+                "box-border",
+                "border",
+                "transition-all",
+                "0.05s",
+                "overflow-hidden",
+                "flex",
+                "flex-col",
+                "h-full"
+            ].join(" ")}
+
             minWidth={isOpened ? 256 : 0}
             maxWidth={512}
             enable={{

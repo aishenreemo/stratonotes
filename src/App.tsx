@@ -15,6 +15,7 @@ import Calendar from "react-calendar";
 import { useEditorMode } from "./contexts/EditorModeContext";
 import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
+import Graphviewer from "./components/Graphviewer";
 
 function App() {
     let editorMode = useEditorMode();
@@ -55,20 +56,28 @@ function App() {
                 </Ribbons>
                 <Sidebar anchor="LEFT">
                     <Searchbar />
+                    <Graphviewer />
                     <NoteToolbar>
-                        <button title="Save note" className="flex flex-grow justify-center items-center">
+                        <button
+                            title="Save note"
+                            className="flex flex-grow justify-center items-center"
+                        >
                             <HiSave />
                         </button>
-                        <button title="Delete note" className="flex flex-grow justify-center items-center">
+                        <button
+                            title="Delete note"
+                            className="flex flex-grow justify-center items-center"
+                        >
                             <RiDeleteBin5Line />
                         </button>
-                        <button title="Create new note" className="flex flex-grow justify-center items-center">
+                        <button
+                            title="Create new note"
+                            className="flex flex-grow justify-center items-center"
+                        >
                             <MdNoteAdd />
                         </button>
                     </NoteToolbar>
-                    <div className=''>
-
-                    </div>
+                    <div className="m-1 border border-black w-auto h-10 flex-grow"></div>
                 </Sidebar>
                 <Editor />
                 <Sidebar anchor="RIGHT">
