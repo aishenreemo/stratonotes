@@ -1,4 +1,5 @@
 import { IoCalendarNumberSharp } from "react-icons/io5";
+import { HiSave } from "react-icons/hi";
 import { IoIosSettings } from "react-icons/io";
 import { GoNote } from "react-icons/go";
 import { FaCode } from "react-icons/fa";
@@ -10,6 +11,7 @@ import Header from "./components/Header";
 import Editor from "./components/Editor";
 import Calendar from "react-calendar";
 import { useEditorMode } from "./contexts/EditorModeContext";
+import NoteToolbar from "./components/NoteToolbar";
 
 function App() {
     let editorMode = useEditorMode();
@@ -49,6 +51,29 @@ function App() {
                     </button>
                 </Ribbons>
                 <Sidebar anchor="LEFT">
+                    <div>
+                        <p>search bar test</p>
+                    </div>
+                    <div>
+                        <p>graph view</p>
+                    </div>
+                    <NoteToolbar>
+                        <button>
+                            <HiSave />
+                        </button>
+                        <button>
+                            <HiSave />
+                        </button>
+                        <button>
+                            <HiSave />
+                        </button>
+                    </NoteToolbar>
+                    <div className=''>
+
+                    </div>
+                </Sidebar>
+                <Editor />
+                <Sidebar anchor="RIGHT">
                     <Calendar
                         className={[
                             "m-2 p-2 border overflow-hidden h-auto",
@@ -57,8 +82,7 @@ function App() {
                         ].join(" ")}
                     />
                 </Sidebar>
-                <Editor />
-                <Sidebar anchor="RIGHT" />
+
                 <Footer />
             </div>
         </div>
