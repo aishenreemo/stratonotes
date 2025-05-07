@@ -21,7 +21,7 @@ import FileList from "./components/FileList";
 function App() {
     let editorMode = useEditorMode();
     return (
-        <div className="w-screen h-screen">
+        <div className="w-screen h-screen overflow-y-hidden">
             <div
                 style={{
                     gridTemplateColumns: "auto auto 1fr auto",

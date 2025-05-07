@@ -8,7 +8,7 @@ function Editor() {
     const [markdown, setMarkdown] = useState("# Hello World");
 
     return (
-        <div className="p-1 m-1 w-auto h-auto">
+        <div className="p-1 m-1 w-auto h-auto overflow-y-scroll">
             {isSourceMode ? (
                 <textarea
                     className="border w-full h-full outline-none resize-none p-4"
