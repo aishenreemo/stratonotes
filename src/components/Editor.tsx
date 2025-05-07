@@ -1,13 +1,10 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import MarkdownPreview from "@uiw/react-markdown-preview";
+import { useEditorMode } from "../contexts/EditorModeContext";
 
-function Editor({
-    isSourceMode,
-    setIsSourceMode,
-}: {
-    isSourceMode: boolean;
-    setIsSourceMode: Dispatch<SetStateAction<boolean>>;
-}) {
+function Editor() {
+    const editorMode = useEditorMode();
+    const isSourceMode = editorMode.state.mode === "SOURCE";
     const [markdown, setMarkdown] = useState("# Hello World");
 
     return (
@@ -20,7 +17,12 @@ function Editor({
                 />
             ) : (
                 <div
-                    onClick={() => setIsSourceMode(true)}
+                    onClick={() =>
+                        editorMode.dispatch({
+                            type: "SET_MODE",
+                            payload: "READING",
+                        })
+                    }
                     className="markdown-body w-full h-full border p-4 overflowy-auto"
                 >
                     <MarkdownPreview

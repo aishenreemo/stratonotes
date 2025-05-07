@@ -1,17 +1,8 @@
-import { Dispatch, SetStateAction } from "react";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { useSidebar } from "../contexts/SidebarContext";
 
-function Header({
-    leftOpened,
-    rightOpened,
-    setLeftOpened,
-    setRightOpened,
-}: {
-    leftOpened: boolean;
-    rightOpened: boolean;
-    setLeftOpened: Dispatch<SetStateAction<boolean>>;
-    setRightOpened: Dispatch<SetStateAction<boolean>>;
-}) {
+function Header() {
+    let sidebar = useSidebar();
     return (
         <div
             style={{
@@ -20,13 +11,27 @@ function Header({
             className="flex border-b p-1"
         >
             <div className="flex items-center">
-                <button onClick={() => setLeftOpened(!leftOpened)}>
+                <button
+                    onClick={() =>
+                        sidebar.dispatch({
+                            anchor: "LEFT",
+                            type: "TOGGLE_OPENED",
+                        })
+                    }
+                >
                     <GoSidebarCollapse />
                 </button>
             </div>
             <div className="mx-auto">Stratonotes</div>
             <div className="flex items-center">
-                <button onClick={() => setRightOpened(!rightOpened)}>
+                <button
+                    onClick={() =>
+                        sidebar.dispatch({
+                            anchor: "RIGHT",
+                            type: "TOGGLE_OPENED",
+                        })
+                    }
+                >
                     <GoSidebarExpand />
                 </button>
             </div>

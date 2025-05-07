@@ -8,14 +8,11 @@ import Sidebar from "./components/Sidebar";
 import Ribbons from "./components/Ribbons";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
-import { useState } from "react";
 import Calendar from "react-calendar";
+import { useEditorMode } from "./contexts/EditorModeContext";
 
 function App() {
-    const [isSourceMode, setIsSourceMode] = useState(false);
-    const [leftOpened, setLeftOpened] = useState(false);
-    const [rightOpened, setRightOpened] = useState(false);
-
+    let editorMode = useEditorMode();
     return (
         <div className="p-1 w-screen h-screen">
             <div
@@ -28,12 +25,7 @@ function App() {
                     "border grid",
                 ].join(" ")}
             >
-                <Header
-                    leftOpened={leftOpened}
-                    rightOpened={rightOpened}
-                    setLeftOpened={setLeftOpened}
-                    setRightOpened={setRightOpened}
-                />
+                <Header />
                 <Ribbons>
                     <button>
                         <IoCalendarNumberSharp />
@@ -41,25 +33,32 @@ function App() {
                     <button>
                         <GoNote />
                     </button>
-                    <button onClick={() => setIsSourceMode(!isSourceMode)}>
-                        {isSourceMode ? <FaCode /> : <FaMarkdown />}
+                    <button
+                        onClick={() =>
+                            editorMode.dispatch({ type: "TOGGLE_MODE" })
+                        }
+                    >
+                        {editorMode.state.mode == "SOURCE" ? (
+                            <FaCode />
+                        ) : (
+                            <FaMarkdown />
+                        )}
                     </button>
                     <button>
                         <IoIosSettings />
                     </button>
                 </Ribbons>
-                <Sidebar isOnLeft={true} isOpened={leftOpened}>
-                    <Calendar className={[
-                        "m-2 p-2 border overflow-hidden h-[190px]",
-                        "[&>:first-child]:flex [&>div:first-child]justify-center",
-                        "[&>:last-child]:text-[0.75rem]",
-                    ].join(" ")}/>
+                <Sidebar anchor="LEFT">
+                    <Calendar
+                        className={[
+                            "m-2 p-2 border overflow-hidden h-auto",
+                            "[&>:first-child]:flex [&>div:first-child]justify-center",
+                            "[&>:last-child]:text-[0.75rem]",
+                        ].join(" ")}
+                    />
                 </Sidebar>
-                <Editor
-                    isSourceMode={isSourceMode}
-                    setIsSourceMode={setIsSourceMode}
-                />
-                <Sidebar isOnLeft={false} isOpened={rightOpened} />
+                <Editor />
+                <Sidebar anchor="RIGHT" />
                 <Footer />
             </div>
         </div>
