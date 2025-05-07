@@ -14,7 +14,7 @@ import { useEditorMode } from "./contexts/EditorModeContext";
 function App() {
     let editorMode = useEditorMode();
     return (
-        <div className="p-1 w-screen h-screen">
+        <div className="w-screen h-screen">
             <div
                 style={{
                     gridTemplateColumns: "auto auto 1fr auto",
@@ -22,7 +22,7 @@ function App() {
                 }}
                 className={[
                     "w-full h-full rounded-sm max-w-screen max-h-screen",
-                    "border grid",
+                    "grid",
                 ].join(" ")}
             >
                 <Header />
