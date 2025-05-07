@@ -16,6 +16,7 @@ import { useEditorMode } from "./contexts/EditorModeContext";
 import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
 import Graphviewer from "./components/Graphviewer";
+import FileList from "./components/FileList";
 
 function App() {
     let editorMode = useEditorMode();
@@ -77,7 +78,9 @@ function App() {
                             <MdNoteAdd />
                         </button>
                     </NoteToolbar>
-                    <div className="m-1 border border-black w-auto h-10 flex-grow"></div>
+                    <FileList>
+                        <p>PlaceHolder Text !!</p>
+                    </FileList>
                 </Sidebar>
                 <Editor />
                 <Sidebar anchor="RIGHT">

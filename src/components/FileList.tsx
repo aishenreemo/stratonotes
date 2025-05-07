@@ -1,18 +1,16 @@
 import { ReactNode } from "react";
 
-function NoteToolbar({ children }: { children?: ReactNode }) {
+function FileList({ children }: { children?: ReactNode }) {
     return (
         <div
             className={[
-                "flex",
-                "justify-evenly",
-                "gap-2",
-                "w-auto",
-                "h-10",
-                "p-1",
                 "m-1",
                 "border",
                 "border-black",
+                "w-auto",
+                "h-10",
+                "flex-grow",
+                "overflow-x-hidden",
             ].join(" ")}
         >
             {children}
@@ -20,4 +18,4 @@ function NoteToolbar({ children }: { children?: ReactNode }) {
     );
 }
 
-export default NoteToolbar;
+export default FileList;

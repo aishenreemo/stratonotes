@@ -25,9 +25,8 @@ function Sidebar({
                 "overflow-hidden",
                 "flex",
                 "flex-col",
-                "h-full"
+                "h-full",
             ].join(" ")}
-
             minWidth={isOpened ? 256 : 0}
             maxWidth={512}
             enable={{
