@@ -1,11 +1,12 @@
 import { IoCalendarNumberSharp } from "react-icons/io5";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdNoteAdd } from "react-icons/md";
-import { HiSave } from "react-icons/hi";
+import { PiFloppyDiskBackFill } from "react-icons/pi";
 import { IoIosSettings } from "react-icons/io";
 import { GoNote } from "react-icons/go";
 import { FaCode } from "react-icons/fa";
 import { FaMarkdown } from "react-icons/fa";
+import { MdFileOpen } from "react-icons/md";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Ribbons from "./components/Ribbons";
@@ -63,7 +64,7 @@ function App() {
                             title="Save note"
                             className="flex flex-grow justify-center items-center"
                         >
-                            <HiSave />
+                            <PiFloppyDiskBackFill />
                         </button>
                         <button
                             title="Delete note"
@@ -76,6 +77,12 @@ function App() {
                             className="flex flex-grow justify-center items-center"
                         >
                             <MdNoteAdd />
+                        </button>
+                        <button
+                            title="Open note"
+                            className="flex flex-grow justify-center items-center"
+                        >
+                            <MdFileOpen />
                         </button>
                     </NoteToolbar>
                     <FileList>
