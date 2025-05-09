@@ -1,5 +1,7 @@
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { IoCloseCircle } from "react-icons/io5";
 import { useSidebar } from "../contexts/SidebarContext";
+import { invoke } from '@tauri-apps/api/core';
 
 function Header() {
     let sidebar = useSidebar();
@@ -33,6 +35,14 @@ function Header() {
                     }
                 >
                     <GoSidebarExpand />
+                </button>
+            </div>
+            <div className="flex items-center">
+                <button
+                    onClick={() =>
+                        invoke("close_app")
+                    }>
+                    <IoCloseCircle />
                 </button>
             </div>
         </div>
