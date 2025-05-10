@@ -1,22 +1,56 @@
+use std::env;
 use std::error::Error;
+use std::fs;
+use std::path::PathBuf;
 
+use log::info;
+use settings::PathSettings;
+use tauri::command;
 use tauri::App;
+use tauri::Manager;
 use tauri::Runtime;
+use tauri::State;
 use tauri_plugin_log::Builder;
 
-type Result<T> = std::result::Result<T, Box<dyn Error>>;
+mod settings;
+
+pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
 fn setup_app<R: Runtime>(app: &mut App<R>) -> Result<()> {
-    if cfg!(debug_assertions) {
-        let log_filter_plugin = Builder::default().level(log::LevelFilter::Info).build();
-
-        app.handle().plugin(log_filter_plugin)?;
+    let path_settings = PathSettings::default();
+    if !path_settings.exists_all() {
+        info!("Some directories are missing, re-creating folders.",);
+        path_settings.create_dirs()?;
     }
+
+    app.manage(path_settings);
 
     Ok(())
 }
 
-#[tauri::command]
+#[command]
+fn fetch_notes(path_settings: State<'_, PathSettings>) -> std::result::Result<Vec<PathBuf>, String> {
+    if !path_settings.notes.is_dir() {
+        return Err(format!("Path '{:?}' is not a directory.", path_settings.notes).into());
+    }
+
+    let entries = fs::read_dir(&path_settings.notes)
+        .map_err(|e| format!("{e:?}"))?
+        .filter(|e| e.is_ok())
+        .map(|e| e.unwrap())
+        .filter(|e| e.path().is_file())
+        .filter(|e| {
+            e.path()
+                .extension()
+                .map_or(false, |x| x.to_string_lossy().to_lowercase() == "md")
+        })
+        .map(|e| e.path())
+        .collect();
+
+    Ok(entries)
+}
+
+#[command]
 fn close_app() {
     std::process::exit(0);
 }
@@ -25,7 +59,8 @@ fn close_app() {
 pub fn run() {
     tauri::Builder::default()
         .setup(setup_app)
-        .invoke_handler(tauri::generate_handler![close_app])
+        .plugin(Builder::default().level(log::LevelFilter::Info).build())
+        .invoke_handler(tauri::generate_handler![fetch_notes, close_app])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
 }

@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App.tsx";
 import { EditorModeProvider } from "./contexts/EditorModeContext.tsx";
 import { SidebarProvider } from "./contexts/SidebarContext.tsx";
+import { ExplorerProvider } from "./contexts/ExplorerContext.tsx";
 
 function AppProvider({ children }: { children: ReactNode }) {
     return (
-        <EditorModeProvider>
-            <SidebarProvider>{children}</SidebarProvider>
-        </EditorModeProvider>
+        <ExplorerProvider>
+            <EditorModeProvider>
+                <SidebarProvider>{children}</SidebarProvider>
+            </EditorModeProvider>
+        </ExplorerProvider>
     );
 }
 

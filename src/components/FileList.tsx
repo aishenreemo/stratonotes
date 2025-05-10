@@ -1,10 +1,19 @@
-import { ReactNode } from "react";
+import { invoke } from "@tauri-apps/api/core";
+import { useExplorer } from "../contexts/ExplorerContext";
 
-function FileList({ children }: { children?: ReactNode }) {
+function FileList() {
+    let explorer = useExplorer();
+
+    invoke("fetch_notes").then(files => {
+        explorer.dispatch({ type: "FETCH_NOTES", payload: files as String[] });
+    });
+
     return (
         <div
             className={[
+                "flex flex-col gap-1",
                 "m-1",
+                "p-2 pr-4",
                 "border",
                 "border-black",
                 "w-auto",
@@ -13,9 +22,20 @@ function FileList({ children }: { children?: ReactNode }) {
                 "overflow-x-hidden",
             ].join(" ")}
         >
-            {children}
+            {explorer.state.files.map((p, i) => {
+                return (
+                    <div 
+                        key={i}
+                        className="p-1 border cursor-pointer focus:border-blue"
+                        onClick={() => explorer.dispatch({ type: "OPEN_NOTE", payload: i})}
+                    >
+                        {p.split('/').pop()}
+                    </div>
+                );
+            })}
         </div>
     );
+
 }
 
 export default FileList;

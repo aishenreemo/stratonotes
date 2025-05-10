@@ -85,9 +85,7 @@ function App() {
                             <MdFileOpen />
                         </button>
                     </NoteToolbar>
-                    <FileList>
-                        <p>PlaceHolder Text !!</p>
-                    </FileList>
+                    <FileList />
                 </Sidebar>
                 <Editor />
                 <Sidebar anchor="RIGHT">
