@@ -2,7 +2,6 @@
     "arrowParens": "always",
     "bracketSpacing": true,
     "endOfLine": "lf",
-    "jsxBracketSameLine": false,
     "jsxSingleQuote": false,
     "printWidth": 80,
     "proseWrap": "preserve",
@@ -11,6 +10,5 @@
     "singleQuote": false,
     "tabWidth": 4,
     "trailingComma": "es5",
-    "useTabs": false,
-    "cssEnable": ["css"]
+    "useTabs": false
 }

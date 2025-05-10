@@ -6,10 +6,12 @@ import {
     useContext,
 } from "react";
 
-type ExplorerAction = { type: "FETCH_NOTES", payload: String[] } | { type: "OPEN_NOTE", payload: number }
+type ExplorerAction =
+    | { type: "FETCH_NOTES"; payload: String[] }
+    | { type: "OPEN_NOTE"; payload: number };
 interface ExplorerState {
-    files: String[],
-    selectedFile?: String,
+    files: String[];
+    selectedFile?: String;
 }
 
 interface ExplorerContextType {
@@ -22,12 +24,15 @@ function explorerReducer(state: ExplorerState, action: ExplorerAction) {
         return {
             ...state,
             files: action.payload,
-        }
-    } else if (action.type == "OPEN_NOTE" && action.payload < state.files.length) {
+        };
+    } else if (
+        action.type == "OPEN_NOTE" &&
+        action.payload < state.files.length
+    ) {
         return {
             ...state,
             selectedFile: state.files[action.payload],
-        }
+        };
     }
 
     return state;
@@ -46,7 +51,9 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
     );
 }
 
-const ExplorerContext = createContext<ExplorerContextType | undefined>(undefined);
+const ExplorerContext = createContext<ExplorerContextType | undefined>(
+    undefined
+);
 
 export function useExplorer() {
     const context = useContext(ExplorerContext);

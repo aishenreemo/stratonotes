@@ -4,7 +4,7 @@ import { useExplorer } from "../contexts/ExplorerContext";
 function FileList() {
     let explorer = useExplorer();
 
-    invoke("fetch_notes").then(files => {
+    invoke("fetch_notes").then((files) => {
         explorer.dispatch({ type: "FETCH_NOTES", payload: files as String[] });
     });
 
@@ -24,18 +24,19 @@ function FileList() {
         >
             {explorer.state.files.map((p, i) => {
                 return (
-                    <div 
+                    <div
                         key={i}
                         className="p-1 border cursor-pointer focus:border-blue"
-                        onClick={() => explorer.dispatch({ type: "OPEN_NOTE", payload: i})}
+                        onClick={() =>
+                            explorer.dispatch({ type: "OPEN_NOTE", payload: i })
+                        }
                     >
-                        {p.split('/').pop()}
+                        {p.split("/").pop()}
                     </div>
                 );
             })}
         </div>
     );
-
 }
 
 export default FileList;

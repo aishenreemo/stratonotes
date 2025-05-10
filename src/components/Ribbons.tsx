@@ -21,9 +21,7 @@ function Ribbons() {
                 <GoNote />
             </button>
             <button
-                onClick={() =>
-                    editorMode.dispatch({ type: "TOGGLE_MODE" })
-                }
+                onClick={() => editorMode.dispatch({ type: "TOGGLE_MODE" })}
             >
                 {editorMode.state.mode == "SOURCE" ? (
                     <FaCode />

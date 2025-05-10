@@ -5,6 +5,7 @@ Your personalized atmosphere for productive growth.
 ## Building
 
 ### Prerequisites
+
 - [git](https://git-scm.com/downloads/win)
 - [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
 - [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/#windows)

@@ -1,7 +1,7 @@
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { IoCloseCircle } from "react-icons/io5";
 import { useSidebar } from "../contexts/SidebarContext";
-import { invoke } from '@tauri-apps/api/core';
+import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
 import { useExplorer } from "../contexts/ExplorerContext";
 
@@ -16,7 +16,7 @@ function Header() {
             return;
         }
 
-        let basename = filepath.split('/').pop();
+        let basename = filepath.split("/").pop();
         setTitle(`Stratonotes > ${basename}`);
     }, [explorer.state.selectedFile]);
 
