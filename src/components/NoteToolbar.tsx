@@ -1,7 +1,8 @@
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdNoteAdd } from "react-icons/md";
 import { PiFloppyDiskBackFill } from "react-icons/pi";
-import { MdFileOpen } from "react-icons/md";
+import { invoke } from "@tauri-apps/api/core";
+import { info } from "@tauri-apps/plugin-log";
 
 function NoteToolbar() {
     return (
@@ -21,6 +22,11 @@ function NoteToolbar() {
             <button
                 title="Save note"
                 className="flex flex-grow justify-center items-center"
+
+                onClick={() =>{
+                    invoke("save_note")
+                    info("note saved yeyeyeyeyyey ")
+                }}
             >
                 <PiFloppyDiskBackFill />
             </button>
@@ -35,12 +41,6 @@ function NoteToolbar() {
                 className="flex flex-grow justify-center items-center"
             >
                 <MdNoteAdd />
-            </button>
-            <button
-                title="Open note"
-                className="flex flex-grow justify-center items-center"
-            >
-                <MdFileOpen />
             </button>
         </div>
     );

@@ -9,7 +9,7 @@ function Editor() {
     const explorer = useExplorer();
     const editorMode = useEditorMode();
     const isSourceMode = editorMode.state.mode === "SOURCE";
-    const [markdown, setMarkdown] = useState("# No file opened yet.");
+    const [markdown, setMarkdown] = useState("# Welcome to Stratonotes!");
 
     useEffect(() => {
         info(`Opened ${explorer.state.selectedFile}.`);

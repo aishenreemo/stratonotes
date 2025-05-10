@@ -26,12 +26,12 @@ function FileList() {
                 return (
                     <div
                         key={i}
-                        className="p-1 border cursor-pointer focus:border-blue"
+                        className="p-1 border cursor-pointer focus:border-blue overflow-hidden"
                         onClick={() =>
                             explorer.dispatch({ type: "OPEN_NOTE", payload: i })
                         }
                     >
-                        {p.split("/").pop()}
+                        {p.replace(/\\/g, "/").split("/").pop()}
                     </div>
                 );
             })}
