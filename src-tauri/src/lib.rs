@@ -51,6 +51,11 @@ fn fetch_notes(path_settings: State<'_, PathSettings>) -> std::result::Result<Ve
 }
 
 #[command]
+fn open_note(file_path: String) -> std::result::Result<String, String> {
+    fs::read_to_string(file_path).map_err(|e| e.to_string())
+}
+
+#[command]
 fn close_app() {
     std::process::exit(0);
 }
@@ -60,7 +65,7 @@ pub fn run() {
     tauri::Builder::default()
         .setup(setup_app)
         .plugin(Builder::default().level(log::LevelFilter::Info).build())
-        .invoke_handler(tauri::generate_handler![fetch_notes, close_app])
+        .invoke_handler(tauri::generate_handler![fetch_notes, open_note, close_app])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
 }

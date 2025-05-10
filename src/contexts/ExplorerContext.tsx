@@ -5,7 +5,6 @@ import {
     ReactNode,
     useContext,
 } from "react";
-import { info } from "@tauri-apps/plugin-log";
 
 type ExplorerAction = { type: "FETCH_NOTES", payload: String[] } | { type: "OPEN_NOTE", payload: number }
 interface ExplorerState {
@@ -25,8 +24,6 @@ function explorerReducer(state: ExplorerState, action: ExplorerAction) {
             files: action.payload,
         }
     } else if (action.type == "OPEN_NOTE" && action.payload < state.files.length) {
-        console.log(info);
-        info(`test: ${state.files[action.payload]}`);
         return {
             ...state,
             selectedFile: state.files[action.payload],

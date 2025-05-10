@@ -2,9 +2,24 @@ import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { IoCloseCircle } from "react-icons/io5";
 import { useSidebar } from "../contexts/SidebarContext";
 import { invoke } from '@tauri-apps/api/core';
+import { useEffect, useState } from "react";
+import { useExplorer } from "../contexts/ExplorerContext";
 
 function Header() {
     let sidebar = useSidebar();
+    let explorer = useExplorer();
+    let [title, setTitle] = useState("Stratonotes");
+
+    useEffect(() => {
+        let filepath = explorer.state.selectedFile;
+        if (filepath === undefined) {
+            return;
+        }
+
+        let basename = filepath.split('/').pop();
+        setTitle(`Stratonotes > ${basename}`);
+    }, [explorer.state.selectedFile]);
+
     return (
         <div
             data-tauri-drag-region
@@ -25,7 +40,7 @@ function Header() {
                     <GoSidebarCollapse />
                 </button>
             </div>
-            <div className="mx-auto">Stratonotes</div>
+            <div className="mx-auto">{title}</div>
             <div className="flex items-center">
                 <button
                     onClick={() =>

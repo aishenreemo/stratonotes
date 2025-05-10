@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import { useEditorMode } from "../contexts/EditorModeContext";
+import { useExplorer } from "../contexts/ExplorerContext";
+import { error, info } from "@tauri-apps/plugin-log";
+import { invoke } from "@tauri-apps/api/core";
 
 function Editor() {
+    const explorer = useExplorer();
     const editorMode = useEditorMode();
     const isSourceMode = editorMode.state.mode === "SOURCE";
-    const [markdown, setMarkdown] = useState("# Hello World");
+    const [markdown, setMarkdown] = useState("# No file opened yet.");
+
+    useEffect(() => {
+        info(`Opened ${explorer.state.selectedFile}.`);
+        invoke("open_note", { filePath: explorer.state.selectedFile })
+            .then((content: any) => setMarkdown(content))
+            .catch(error);
+    }, [explorer.state.selectedFile]);
 
     return (
         <div className="p-1 m-1 w-auto h-auto overflow-hidden">
@@ -32,7 +43,7 @@ function Editor() {
                             if (
                                 (node as any).tagName === "a" &&
                                 parent &&
-                                /^h(1|2|3|4|5|6)/.test((parent as any).tagName)
+                                /^h[1-6]/.test((parent as any).tagName)
                             ) {
                                 parent.children = parent.children.slice(1);
                             }

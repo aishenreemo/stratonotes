@@ -1,6 +1,9 @@
-import { ReactNode } from "react";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { MdNoteAdd } from "react-icons/md";
+import { PiFloppyDiskBackFill } from "react-icons/pi";
+import { MdFileOpen } from "react-icons/md";
 
-function NoteToolbar({ children }: { children?: ReactNode }) {
+function NoteToolbar() {
     return (
         <div
             className={[
@@ -15,7 +18,30 @@ function NoteToolbar({ children }: { children?: ReactNode }) {
                 "border-black",
             ].join(" ")}
         >
-            {children}
+            <button
+                title="Save note"
+                className="flex flex-grow justify-center items-center"
+            >
+                <PiFloppyDiskBackFill />
+            </button>
+            <button
+                title="Delete note"
+                className="flex flex-grow justify-center items-center"
+            >
+                <RiDeleteBin5Line />
+            </button>
+            <button
+                title="Create new note"
+                className="flex flex-grow justify-center items-center"
+            >
+                <MdNoteAdd />
+            </button>
+            <button
+                title="Open note"
+                className="flex flex-grow justify-center items-center"
+            >
+                <MdFileOpen />
+            </button>
         </div>
     );
 }
