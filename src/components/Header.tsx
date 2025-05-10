@@ -7,10 +7,11 @@ function Header() {
     let sidebar = useSidebar();
     return (
         <div
+            data-tauri-drag-region
+            className="flex border-b p-1 gap-1"
             style={{
                 gridColumn: "1 / 5",
             }}
-            className="flex border-b p-1"
         >
             <div className="flex items-center">
                 <button
@@ -38,10 +39,7 @@ function Header() {
                 </button>
             </div>
             <div className="flex items-center">
-                <button
-                    onClick={() =>
-                        invoke("close_app")
-                    }>
+                <button onClick={() => invoke("close_app")}>
                     <IoCloseCircle />
                 </button>
             </div>

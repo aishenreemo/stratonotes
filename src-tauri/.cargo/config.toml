@@ -1,2 +1,6 @@
 [build]
-jobs = 4
+jobs = 1
+
+[target.'cfg(target_os = "linux")']
+linker = "clang"
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
