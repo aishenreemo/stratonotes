@@ -68,6 +68,16 @@ fn save_note(file_path: String, note_content: String) -> std::result::Result<(),
 }
 
 #[command]
+fn delete_note(file_path: String) -> std::result::Result<(), String>{
+    let file_name: &OsStr = Path::new(&file_path).file_name().unwrap();
+    if !PathBuf::from(&file_path).exists() {
+        return Err(format!("{file_name:?} does not exist.").into())
+    }
+    fs::remove_file(file_path).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+#[command]
 fn close_app() {
     std::process::exit(0);
 }
@@ -77,7 +87,7 @@ pub fn run() {
     tauri::Builder::default()
         .setup(setup_app)
         .plugin(Builder::default().level(log::LevelFilter::Info).build())
-        .invoke_handler(tauri::generate_handler![fetch_notes, open_note, save_note, close_app])
+        .invoke_handler(tauri::generate_handler![fetch_notes, open_note, save_note, delete_note, close_app])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
 }

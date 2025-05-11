@@ -26,7 +26,7 @@ function FileList() {
                 return (
                     <div
                         key={i}
-                        className="p-1 border cursor-pointer focus:border-blue overflow-hidden"
+                        className="p-1 border border-black cursor-pointer focus:border-blue overflow-hidden"
                         onClick={() =>
                             explorer.dispatch({ type: "OPEN_NOTE", payload: i })
                         }

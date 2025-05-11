@@ -41,6 +41,14 @@ function NoteToolbar() {
             <button
                 title="Delete note"
                 className="flex flex-grow justify-center items-center"
+
+                onClick={async () =>{
+                    invoke("delete_note", {
+                        filePath: explorer.state.selectedFile,
+                    }).then(() => {
+                        info(`deleted ${explorer.state.selectedFile}.`);
+                    }).catch(error);
+                }}
             >
                 <RiDeleteBin5Line />
             </button>
