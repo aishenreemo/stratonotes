@@ -2,9 +2,13 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdNoteAdd } from "react-icons/md";
 import { PiFloppyDiskBackFill } from "react-icons/pi";
 import { invoke } from "@tauri-apps/api/core";
-import { info } from "@tauri-apps/plugin-log";
+import { useExplorer } from "../contexts/ExplorerContext";
+import { useEditor } from "../contexts/EditorContext";
+import { error, info } from "@tauri-apps/plugin-log";
 
 function NoteToolbar() {
+    let explorer = useExplorer();
+    let editor = useEditor();
     return (
         <div
             className={[
@@ -23,9 +27,13 @@ function NoteToolbar() {
                 title="Save note"
                 className="flex flex-grow justify-center items-center"
 
-                onClick={() =>{
-                    invoke("save_note")
-                    info("note saved yeyeyeyeyyey ")
+                onClick={async () =>{
+                    invoke("save_note", {
+                        filePath: explorer.state.selectedFile,
+                        noteContent: editor.state.content,
+                    }).then(() => {
+                        info(`Saved ${explorer.state.selectedFile}.`);
+                    }).catch(error);
                 }}
             >
                 <PiFloppyDiskBackFill />

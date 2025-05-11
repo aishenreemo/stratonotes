@@ -2,16 +2,16 @@ import { ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import { EditorModeProvider } from "./contexts/EditorModeContext.tsx";
+import { EditorProvider } from "./contexts/EditorContext.tsx";
 import { SidebarProvider } from "./contexts/SidebarContext.tsx";
 import { ExplorerProvider } from "./contexts/ExplorerContext.tsx";
 
 function AppProvider({ children }: { children: ReactNode }) {
     return (
         <ExplorerProvider>
-            <EditorModeProvider>
+            <EditorProvider>
                 <SidebarProvider>{children}</SidebarProvider>
-            </EditorModeProvider>
+            </EditorProvider>
         </ExplorerProvider>
     );
 }

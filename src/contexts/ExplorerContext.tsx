@@ -9,6 +9,7 @@ import {
 type ExplorerAction =
     | { type: "FETCH_NOTES"; payload: String[] }
     | { type: "OPEN_NOTE"; payload: number };
+
 interface ExplorerState {
     files: String[];
     selectedFile?: String;
@@ -60,7 +61,7 @@ export function useExplorer() {
 
     if (!context) {
         throw new Error(
-            "useEditorMode must be used within an EditorModeProvider"
+            "useEditor must be used within an EditorProvider"
         );
     }
 

@@ -3,10 +3,10 @@ import { IoIosSettings } from "react-icons/io";
 import { GoNote } from "react-icons/go";
 import { FaCode } from "react-icons/fa";
 import { FaMarkdown } from "react-icons/fa";
-import { useEditorMode } from "../contexts/EditorModeContext";
+import { useEditor } from "../contexts/EditorContext";
 
 function Ribbons() {
-    let editorMode = useEditorMode();
+    let editor = useEditor();
     return (
         <div
             style={{
@@ -21,9 +21,9 @@ function Ribbons() {
                 <GoNote />
             </button>
             <button
-                onClick={() => editorMode.dispatch({ type: "TOGGLE_MODE" })}
+                onClick={() => editor.dispatch({ type: "TOGGLE_MODE" })}
             >
-                {editorMode.state.mode == "SOURCE" ? (
+                {editor.state.mode == "SOURCE" ? (
                     <FaCode />
                 ) : (
                     <FaMarkdown />
