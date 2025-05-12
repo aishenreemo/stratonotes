@@ -29,7 +29,6 @@ function sidebarReducer(state: SidebarState, action: SidebarAction) {
         action.anchor == "LEFT" ? state.isLeftOpened : state.isRightOpened;
 
     if (action.type == "TOGGLE_OPENED") {
-        console.log(`${action.anchor}: ${!isOpened}`);
         return action.anchor == "LEFT"
             ? { ...state, isLeftOpened: !isOpened }
             : { ...state, isRightOpened: !isOpened };

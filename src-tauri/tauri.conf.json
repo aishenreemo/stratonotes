@@ -18,7 +18,10 @@
                 "height": 600,
                 "resizable": true,
                 "fullscreen": false,
-                "decorations": false
+                "decorations": false,
+                "maximized": true,
+                "x" : null,
+                "y" : null
             }
         ],
         "security": {
@@ -28,7 +31,12 @@
                     "identifier": "dragging-capability",
                     "description": "Allow dragging on the custom title bar.",
                     "windows": ["*"],
-                    "permissions": ["core:window:default", "core:window:allow-start-dragging"]
+                    "permissions": [
+                        "log:default",
+                        "core:webview:default",
+                        "core:window:default",
+                        "core:window:allow-start-dragging"
+                    ]
                 }
             ]
         }

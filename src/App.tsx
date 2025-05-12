@@ -1,26 +1,15 @@
-import { IoCalendarNumberSharp } from "react-icons/io5";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { MdNoteAdd } from "react-icons/md";
-import { PiFloppyDiskBackFill } from "react-icons/pi";
-import { IoIosSettings } from "react-icons/io";
-import { GoNote } from "react-icons/go";
-import { FaCode } from "react-icons/fa";
-import { FaMarkdown } from "react-icons/fa";
-import { MdFileOpen } from "react-icons/md";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import Ribbons from "./components/Ribbons";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
 import Calendar from "react-calendar";
-import { useEditorMode } from "./contexts/EditorModeContext";
 import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
 import Graphviewer from "./components/Graphviewer";
 import FileList from "./components/FileList";
 
 function App() {
-    let editorMode = useEditorMode();
     return (
         <div className="w-screen h-screen overflow-y-hidden">
             <div
@@ -34,60 +23,12 @@ function App() {
                 ].join(" ")}
             >
                 <Header />
-                <Ribbons>
-                    <button>
-                        <IoCalendarNumberSharp />
-                    </button>
-                    <button>
-                        <GoNote />
-                    </button>
-                    <button
-                        onClick={() =>
-                            editorMode.dispatch({ type: "TOGGLE_MODE" })
-                        }
-                    >
-                        {editorMode.state.mode == "SOURCE" ? (
-                            <FaCode />
-                        ) : (
-                            <FaMarkdown />
-                        )}
-                    </button>
-                    <button>
-                        <IoIosSettings />
-                    </button>
-                </Ribbons>
+                <Ribbons />
                 <Sidebar anchor="LEFT">
                     <Searchbar />
                     <Graphviewer />
-                    <NoteToolbar>
-                        <button
-                            title="Save note"
-                            className="flex flex-grow justify-center items-center"
-                        >
-                            <PiFloppyDiskBackFill />
-                        </button>
-                        <button
-                            title="Delete note"
-                            className="flex flex-grow justify-center items-center"
-                        >
-                            <RiDeleteBin5Line />
-                        </button>
-                        <button
-                            title="Create new note"
-                            className="flex flex-grow justify-center items-center"
-                        >
-                            <MdNoteAdd />
-                        </button>
-                        <button
-                            title="Open note"
-                            className="flex flex-grow justify-center items-center"
-                        >
-                            <MdFileOpen />
-                        </button>
-                    </NoteToolbar>
-                    <FileList>
-                        <p>PlaceHolder Text !!</p>
-                    </FileList>
+                    <NoteToolbar />
+                    <FileList />
                 </Sidebar>
                 <Editor />
                 <Sidebar anchor="RIGHT">
@@ -99,7 +40,6 @@ function App() {
                         ].join(" ")}
                     />
                 </Sidebar>
-
                 <Footer />
             </div>
         </div>

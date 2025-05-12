@@ -1,19 +1,53 @@
-import { ReactNode } from "react";
+import { invoke } from "@tauri-apps/api/core";
+import { useExplorer } from "../contexts/ExplorerContext";
 
-function FileList({ children }: { children?: ReactNode }) {
+function FileList() {
+    let explorer = useExplorer();
+
+    invoke("fetch_notes").then((files) => {
+        explorer.dispatch({ type: "FETCH_NOTES", payload: files as String[] });
+    });
+
     return (
         <div
             className={[
+                "flex flex-col gap-1",
                 "m-1",
+                "p-2 pr-4",
                 "border",
                 "border-black",
                 "w-auto",
                 "h-10",
                 "flex-grow",
-                "overflow-x-hidden",
+                "overflow-y-auto",
+                "overflow-x-hidden"
             ].join(" ")}
         >
-            {children}
+            {explorer.state.files.map((p, i) => {
+                return (
+                    <div
+                        key={i}
+                        className={[
+                            "p-1",
+                            "border",
+                            "border-black",
+                            "cursor-pointer",
+                            "hover:bg-gray-100",
+                            // "hover:drop-shadow-md",
+                            // "transition-all",
+                            "text-ellipsis",
+                            "whitespace-nowrap",
+                            "overflow-clip",
+                            // "rounded"
+                        ].join(" ")}
+                        onClick={() =>
+                            explorer.dispatch({ type: "OPEN_NOTE", payload: i })
+                        }
+                    >
+                        {p.replace(/\\/g, "/").split("/").pop()}
+                    </div>
+                );
+            })}
         </div>
     );
 }

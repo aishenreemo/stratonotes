@@ -1,24 +1,34 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import MarkdownPreview from "@uiw/react-markdown-preview";
-import { useEditorMode } from "../contexts/EditorModeContext";
+import { useEditor } from "../contexts/EditorContext";
+import { useExplorer } from "../contexts/ExplorerContext";
+import { error, info } from "@tauri-apps/plugin-log";
+import { invoke } from "@tauri-apps/api/core";
 
 function Editor() {
-    const editorMode = useEditorMode();
-    const isSourceMode = editorMode.state.mode === "SOURCE";
-    const [markdown, setMarkdown] = useState("# Hello World");
+    const explorer = useExplorer();
+    const editor= useEditor();
+    const isSourceMode = editor.state.mode === "SOURCE";
+
+    useEffect(() => {
+        info(`Opened ${explorer.state.selectedFile}.`);
+        invoke("open_note", { filePath: explorer.state.selectedFile })
+            .then((content: any) => editor.dispatch({ type: "SET_CONTENT", payload: content }))
+            .catch(error);
+    }, [explorer.state.selectedFile]);
 
     return (
         <div className="p-1 m-1 w-auto h-auto overflow-hidden">
             {isSourceMode ? (
                 <textarea
                     className="border w-full h-full outline-none resize-none p-4"
-                    value={markdown}
-                    onChange={(e) => setMarkdown(e.target.value)}
+                    value={editor.state.content as string}
+                    onChange={(e) => editor.dispatch({ type: "SET_CONTENT", payload: e.target.value})}
                 />
             ) : (
                 <div
                     onClick={() =>
-                        editorMode.dispatch({
+                        editor.dispatch({
                             type: "SET_MODE",
                             payload: "READING",
                         })
@@ -26,13 +36,13 @@ function Editor() {
                     className="markdown-body w-full h-full border p-4 overflow-y-auto"
                 >
                     <MarkdownPreview
-                        source={markdown}
+                        source={editor.state.content as string}
                         style={{ backgroundColor: "transparent" }}
                         rehypeRewrite={(node, _, parent) => {
                             if (
                                 (node as any).tagName === "a" &&
                                 parent &&
-                                /^h(1|2|3|4|5|6)/.test((parent as any).tagName)
+                                /^h[1-6]/.test((parent as any).tagName)
                             ) {
                                 parent.children = parent.children.slice(1);
                             }
