@@ -2,6 +2,7 @@ use std::env;
 use std::error::Error;
 use std::ffi::OsStr;
 use std::fs;
+use std::fs::File;
 use std::path::Path;
 use std::path::PathBuf;
 
@@ -78,6 +79,23 @@ fn delete_note(file_path: String) -> std::result::Result<(), String>{
 }
 
 #[command]
+fn create_note(path_settings: State<'_, PathSettings>, title: String) -> std::result::Result<(), String>{
+    let mut modifiable_title: String = title.clone();
+    let mut counter: i32 = 0;
+    let mut file: PathBuf  = PathBuf::from(path_settings.notes.join(format!("{modifiable_title}.md")));
+
+    while PathBuf::from(&file).exists() {
+        counter += 1;
+        modifiable_title = format!("{}-{}", &title, counter);
+        file = path_settings.notes.join(format!("{modifiable_title}.md"));
+    }
+
+    File::create(&file).map_err(|e| e.to_string())?;
+    Ok(())
+
+}
+
+#[command]
 fn close_app() {
     std::process::exit(0);
 }
@@ -87,7 +105,7 @@ pub fn run() {
     tauri::Builder::default()
         .setup(setup_app)
         .plugin(Builder::default().level(log::LevelFilter::Info).build())
-        .invoke_handler(tauri::generate_handler![fetch_notes, open_note, save_note, delete_note, close_app])
+        .invoke_handler(tauri::generate_handler![fetch_notes, open_note, save_note, delete_note, create_note, close_app])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
 }

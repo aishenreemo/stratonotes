@@ -55,6 +55,15 @@ function NoteToolbar() {
             <button
                 title="Create new note"
                 className="flex flex-grow justify-center items-center"
+
+                onClick={async () =>{
+                    invoke("create_note", {
+                        title: "Untitled",
+                    }).then(() => {
+                        info(`Created a new note.`);
+                    }).catch(error);
+                }}
+
             >
                 <MdNoteAdd />
             </button>

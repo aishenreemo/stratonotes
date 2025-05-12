@@ -19,14 +19,27 @@ function FileList() {
                 "w-auto",
                 "h-10",
                 "flex-grow",
-                "overflow-x-hidden",
+                "overflow-y-auto",
+                "overflow-x-hidden"
             ].join(" ")}
         >
             {explorer.state.files.map((p, i) => {
                 return (
                     <div
                         key={i}
-                        className="p-1 border border-black cursor-pointer focus:border-blue overflow-hidden"
+                        className={[
+                            "p-1",
+                            "border",
+                            "border-black",
+                            "cursor-pointer",
+                            "hover:bg-gray-100",
+                            // "hover:drop-shadow-md",
+                            // "transition-all",
+                            "text-ellipsis",
+                            "whitespace-nowrap",
+                            "overflow-clip",
+                            // "rounded"
+                        ].join(" ")}
                         onClick={() =>
                             explorer.dispatch({ type: "OPEN_NOTE", payload: i })
                         }
