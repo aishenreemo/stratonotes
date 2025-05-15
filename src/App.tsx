@@ -8,6 +8,7 @@ import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
 import Graphviewer from "./components/Graphviewer";
 import FileList from "./components/FileList";
+import Summarizer from "./components/Summarizer";
 
 function App() {
     return (
@@ -39,6 +40,7 @@ function App() {
                             "[&>:last-child]:text-[0.75rem]",
                         ].join(" ")}
                     />
+                    <Summarizer />
                 </Sidebar>
                 <Footer />
             </div>
