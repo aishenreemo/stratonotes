@@ -11,6 +11,10 @@ function Editor() {
     const isSourceMode = editor.state.mode === "SOURCE";
 
     useEffect(() => {
+        if (explorer.state.selectedFile == undefined) {
+            return;
+        }
+
         info(`Opened ${explorer.state.selectedFile}.`);
         invoke("open_note", { filePath: explorer.state.selectedFile })
             .then((content: any) => editor.dispatch({ type: "SET_CONTENT", payload: content }))
