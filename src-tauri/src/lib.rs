@@ -7,6 +7,7 @@ use std::path::Path;
 use std::path::PathBuf;
 
 use log::info;
+use rig::{completion::Prompt, providers::openai};
 use settings::PathSettings;
 use tauri::command;
 use tauri::App;
@@ -24,6 +25,7 @@ fn setup_app<R: Runtime>(app: &mut App<R>) -> Result<()> {
     if !path_settings.exists_all() {
         info!("Some directories are missing, re-creating folders.",);
         path_settings.create_dirs()?;
+        dotenv::dotenv().ok();
     }
 
     app.manage(path_settings);
@@ -100,12 +102,25 @@ fn close_app() {
     std::process::exit(0);
 }
 
+#[command]
+async fn prompt() {
+    let openai_client = openai::Client::from_env();
+    let gpt4 = openai_client.agent("gpt-4").build();
+
+    let response = gpt4
+        .prompt("Who are you?")
+        .await
+        .expect("Failed to prompt GPT-4");
+
+    println!("GPT-4: {response}");
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .setup(setup_app)
         .plugin(Builder::default().level(log::LevelFilter::Info).build())
-        .invoke_handler(tauri::generate_handler![fetch_notes, open_note, save_note, delete_note, create_note, close_app])
+        .invoke_handler(tauri::generate_handler![fetch_notes, open_note, save_note, delete_note, create_note, close_app, prompt])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
 }

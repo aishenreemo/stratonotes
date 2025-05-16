@@ -35,7 +35,7 @@ function App() {
                 <Sidebar anchor="RIGHT">
                     <Calendar
                         className={[
-                            "m-2 p-2 border overflow-hidden h-auto",
+                            "m-1 p-2 border overflow-hidden h-auto",
                             "[&>:first-child]:flex [&>div:first-child]justify-center",
                             "[&>:last-child]:text-[0.75rem]",
                         ].join(" ")}
