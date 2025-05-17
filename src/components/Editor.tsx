@@ -7,17 +7,20 @@ import { invoke } from "@tauri-apps/api/core";
 
 function Editor() {
     const explorer = useExplorer();
-    const editor= useEditor();
+    const editor = useEditor();
     const isSourceMode = editor.state.mode === "SOURCE";
 
     useEffect(() => {
         if (explorer.state.selectedFile == undefined) {
+            editor.dispatch({ type: "SET_CONTENT", payload: "" });
             return;
         }
 
         info(`Opened ${explorer.state.selectedFile}.`);
         invoke("open_note", { filePath: explorer.state.selectedFile })
-            .then((content: any) => editor.dispatch({ type: "SET_CONTENT", payload: content }))
+            .then((content: any) =>
+                editor.dispatch({ type: "SET_CONTENT", payload: content })
+            )
             .catch(error);
     }, [explorer.state.selectedFile]);
 
@@ -27,7 +30,12 @@ function Editor() {
                 <textarea
                     className="border w-full h-full outline-none resize-none p-4"
                     value={editor.state.content as string}
-                    onChange={(e) => editor.dispatch({ type: "SET_CONTENT", payload: e.target.value})}
+                    onChange={(e) =>
+                        editor.dispatch({
+                            type: "SET_CONTENT",
+                            payload: e.target.value,
+                        })
+                    }
                 />
             ) : (
                 <div

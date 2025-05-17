@@ -26,14 +26,15 @@ function NoteToolbar() {
             <button
                 title="Save note"
                 className="flex flex-grow justify-center items-center"
-
-                onClick={async () =>{
+                onClick={async () => {
                     invoke("save_note", {
                         filePath: explorer.state.selectedFile,
                         noteContent: editor.state.content,
-                    }).then(() => {
-                        info(`Saved ${explorer.state.selectedFile}.`);
-                    }).catch(error);
+                    })
+                        .then(() => {
+                            info(`Saved ${explorer.state.selectedFile}.`);
+                        })
+                        .catch(error);
                 }}
             >
                 <PiFloppyDiskBackFill />
@@ -41,13 +42,15 @@ function NoteToolbar() {
             <button
                 title="Delete note"
                 className="flex flex-grow justify-center items-center"
-
-                onClick={async () =>{
+                onClick={async () => {
                     invoke("delete_note", {
                         filePath: explorer.state.selectedFile,
-                    }).then(() => {
-                        info(`deleted ${explorer.state.selectedFile}.`);
-                    }).catch(error);
+                    })
+                        .then(() => {
+                            info(`deleted ${explorer.state.selectedFile}.`);
+                            explorer.dispatch({ type: "OPEN_NOTE", payload: -1 })
+                        })
+                        .catch(error);
                 }}
             >
                 <RiDeleteBin5Line />
@@ -55,15 +58,15 @@ function NoteToolbar() {
             <button
                 title="Create new note"
                 className="flex flex-grow justify-center items-center"
-
-                onClick={async () =>{
+                onClick={async () => {
                     invoke("create_note", {
                         title: "Untitled",
-                    }).then(() => {
-                        info(`Created a new note.`);
-                    }).catch(error);
+                    })
+                        .then((name) => {
+                            info(`Created a new note named '${name}'.`);
+                        })
+                        .catch(error);
                 }}
-
             >
                 <MdNoteAdd />
             </button>

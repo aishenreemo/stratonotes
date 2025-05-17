@@ -9,6 +9,7 @@ use std::path::PathBuf;
 use dotenv::dotenv;
 use log::info;
 use rig::completion::Prompt;
+use rig::providers::gemini;
 use settings::PathSettings;
 use tauri::command;
 use tauri::App;
@@ -16,8 +17,6 @@ use tauri::Manager;
 use tauri::Runtime;
 use tauri::State;
 use tauri_plugin_log::Builder;
-
-use rig::providers::gemini;
 
 mod settings;
 
@@ -86,7 +85,11 @@ fn delete_note(file_path: String) -> std::result::Result<(), String> {
 }
 
 #[command]
-fn create_note(path_settings: State<'_, PathSettings>, title: String) -> std::result::Result<(), String> {
+fn create_note(
+    path_settings: State<'_, PathSettings>,
+    title: String,
+    content: Option<String>,
+) -> std::result::Result<String, String> {
     let mut modifiable_title: String = title.clone();
     let mut counter: i32 = 0;
     let mut file: PathBuf = PathBuf::from(path_settings.notes.join(format!("{modifiable_title}.md")));
@@ -98,7 +101,13 @@ fn create_note(path_settings: State<'_, PathSettings>, title: String) -> std::re
     }
 
     File::create(&file).map_err(|e| e.to_string())?;
-    Ok(())
+    info!("{content:?}");
+
+    if let Some(note_content) = content {
+        fs::write(&file, note_content).map_err(|e| e.to_string())?;
+    }
+
+    Ok(file.to_str().unwrap().to_string())
 }
 
 #[command]
@@ -107,19 +116,17 @@ fn close_app() {
 }
 
 #[command]
-async fn prompt() -> std::result::Result<(), String> {
+async fn prompt(preamble: String, prompt: String) -> std::result::Result<String, String> {
     let client = gemini::Client::from_env();
-    let agent = client.agent(gemini::completion::GEMINI_2_0_FLASH)
-        .preamble("Be creative and concise. Answer directly and clearly.")
+    let agent = client
+        .agent(gemini::completion::GEMINI_2_0_FLASH)
+        .preamble(&preamble)
         .temperature(0.5)
         .build();
 
-    let response = agent
-        .prompt("How much wood would a woodchuck chuck if a woodchuck could chuck wood? Infer an answer.")
-        .await;
-
+    let response = agent.prompt(prompt).await;
     info!("{response:?}");
-    Ok(())
+    response.map_err(|e| e.to_string())
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

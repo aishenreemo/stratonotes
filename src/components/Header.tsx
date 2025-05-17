@@ -13,6 +13,7 @@ function Header() {
     useEffect(() => {
         let filepath = explorer.state.selectedFile;
         if (filepath === undefined) {
+            setTitle("Stratonotes");
             return;
         }
 
