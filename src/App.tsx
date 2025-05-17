@@ -12,7 +12,7 @@ import AIPrompt from "./components/AIPrompt";
 
 function App() {
     return (
-        <div className="w-screen h-screen overflow-y-hidden">
+        <div className="w-screen h-screen overflow-hidden">
             <div
                 style={{
                     gridTemplateColumns: "auto auto 1fr auto",
@@ -21,6 +21,7 @@ function App() {
                 className={[
                     "w-full h-full rounded-sm max-w-screen max-h-screen",
                     "grid",
+                    "overflow-hidden",
                 ].join(" ")}
             >
                 <Header />

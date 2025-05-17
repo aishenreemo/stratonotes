@@ -26,14 +26,11 @@ function explorerReducer(state: ExplorerState, action: ExplorerAction) {
             ...state,
             files: action.payload,
         };
-    } else if (
-        action.type == "OPEN_NOTE" &&
-        action.payload == -1
-    ) {
+    } else if (action.type == "OPEN_NOTE" && action.payload == -1) {
         return {
             ...state,
             selectedFile: undefined,
-        }
+        };
     } else if (
         action.type == "OPEN_NOTE" &&
         action.payload < state.files.length

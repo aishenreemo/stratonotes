@@ -29,10 +29,14 @@ function FileList() {
                         key={i}
                         className={[
                             "p-1",
-                            "border",
-                            "border-black",
+                            // "border",
+                            // "border-black",
                             "cursor-pointer",
                             "hover:bg-gray-100",
+                            "hover:drop-shadow-md",
+                            "hover:scale-102",
+                            "rounded",
+                            "transition-all",
                             "min-h-8",
                             "text-ellipsis",
                             "whitespace-nowrap",
