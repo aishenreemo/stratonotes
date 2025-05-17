@@ -19,8 +19,8 @@ function FileList() {
                 "w-auto",
                 "h-10",
                 "flex-grow",
-                "overflow-y-auto",
-                "overflow-x-hidden"
+                "overflow-y-scroll",
+                "overflow-x-hidden",
             ].join(" ")}
         >
             {explorer.state.files.map((p, i) => {
@@ -33,12 +33,10 @@ function FileList() {
                             "border-black",
                             "cursor-pointer",
                             "hover:bg-gray-100",
-                            // "hover:drop-shadow-md",
-                            // "transition-all",
+                            "min-h-8",
                             "text-ellipsis",
                             "whitespace-nowrap",
                             "overflow-clip",
-                            // "rounded"
                         ].join(" ")}
                         onClick={() =>
                             explorer.dispatch({ type: "OPEN_NOTE", payload: i })

@@ -8,6 +8,7 @@ import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
 import Graphviewer from "./components/Graphviewer";
 import FileList from "./components/FileList";
+import AIPrompt from "./components/AIPrompt";
 
 function App() {
     return (
@@ -34,11 +35,12 @@ function App() {
                 <Sidebar anchor="RIGHT">
                     <Calendar
                         className={[
-                            "m-2 p-2 border overflow-hidden h-auto",
+                            "m-1 p-2 border overflow-hidden h-auto",
                             "[&>:first-child]:flex [&>div:first-child]justify-center",
                             "[&>:last-child]:text-[0.75rem]",
                         ].join(" ")}
                     />
+                    <AIPrompt />
                 </Sidebar>
                 <Footer />
             </div>

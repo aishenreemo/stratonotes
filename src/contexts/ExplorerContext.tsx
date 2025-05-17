@@ -28,6 +28,14 @@ function explorerReducer(state: ExplorerState, action: ExplorerAction) {
         };
     } else if (
         action.type == "OPEN_NOTE" &&
+        action.payload == -1
+    ) {
+        return {
+            ...state,
+            selectedFile: undefined,
+        }
+    } else if (
+        action.type == "OPEN_NOTE" &&
         action.payload < state.files.length
     ) {
         return {
@@ -60,9 +68,7 @@ export function useExplorer() {
     const context = useContext(ExplorerContext);
 
     if (!context) {
-        throw new Error(
-            "useEditor must be used within an EditorProvider"
-        );
+        throw new Error("useEditor must be used within an EditorProvider");
     }
 
     return context;

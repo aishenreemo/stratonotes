@@ -20,14 +20,8 @@ function Ribbons() {
             <button>
                 <GoNote />
             </button>
-            <button
-                onClick={() => editor.dispatch({ type: "TOGGLE_MODE" })}
-            >
-                {editor.state.mode == "SOURCE" ? (
-                    <FaCode />
-                ) : (
-                    <FaMarkdown />
-                )}
+            <button onClick={() => editor.dispatch({ type: "TOGGLE_MODE" })}>
+                {editor.state.mode == "SOURCE" ? <FaCode /> : <FaMarkdown />}
             </button>
             <button>
                 <IoIosSettings />

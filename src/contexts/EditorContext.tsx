@@ -9,6 +9,7 @@ import {
 type EditorMode = "SOURCE" | "READING";
 type EditorAction =
     | { type: "SET_CONTENT"; payload: String }
+    | { type: "ADD_CONTENT"; payload: String }
     | { type: "SET_MODE"; payload: EditorMode }
     | { type: "TOGGLE_MODE"; payload?: undefined };
 
@@ -17,14 +18,13 @@ interface EditorState {
     content: String;
 }
 
-function editorReducer(
-    state: EditorState,
-    action: EditorAction
-): EditorState {
+function editorReducer(state: EditorState, action: EditorAction): EditorState {
     if (action.type == "SET_MODE") {
         return { ...state, mode: action.payload };
     } else if (action.type == "SET_CONTENT") {
         return { ...state, content: action.payload };
+    } else if (action.type == "ADD_CONTENT") {
+        return { ...state, content: `${state.content}\n${action.payload}` };
     } else if (action.type == "TOGGLE_MODE") {
         return {
             ...state,
@@ -53,16 +53,12 @@ export function EditorProvider({ children }: { children: ReactNode }) {
     );
 }
 
-const EditorContext = createContext<EditorContextType | undefined>(
-    undefined
-);
+const EditorContext = createContext<EditorContextType | undefined>(undefined);
 
 export function useEditor() {
     const context = useContext(EditorContext);
     if (!context) {
-        throw new Error(
-            "useEditor must be used within an EditorProvider"
-        );
+        throw new Error("useEditor must be used within an EditorProvider");
     }
     return context;
 }
