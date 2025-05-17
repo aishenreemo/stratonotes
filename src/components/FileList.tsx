@@ -1,8 +1,10 @@
 import { invoke } from "@tauri-apps/api/core";
 import { useExplorer } from "../contexts/ExplorerContext";
+import { v4 as uuid } from "uuid";
 
 function FileList() {
     let explorer = useExplorer();
+    const unique_id = uuid();
 
     invoke("fetch_notes").then((files) => {
         explorer.dispatch({ type: "FETCH_NOTES", payload: files as String[] });
@@ -26,6 +28,7 @@ function FileList() {
             {explorer.state.files.map((p, i) => {
                 return (
                     <div
+                        id={unique_id}
                         key={i}
                         className={[
                             "p-1",

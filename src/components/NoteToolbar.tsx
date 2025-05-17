@@ -85,7 +85,7 @@ function NoteToolbar() {
             <button
                 title="Create new note"
                 className={[
-                    "bg-white",
+                    "bg-black",
                     "flex",
                     "flex-grow",
                     "justify-center",
