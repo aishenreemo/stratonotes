@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import { useEditor } from "../contexts/EditorContext";
 import { useExplorer } from "../contexts/ExplorerContext";
@@ -9,6 +9,7 @@ function Editor() {
     const explorer = useExplorer();
     const editor = useEditor();
     const isSourceMode = editor.state.mode === "SOURCE";
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         if (explorer.state.selectedFile == undefined) {
@@ -24,10 +25,17 @@ function Editor() {
             .catch(error);
     }, [explorer.state.selectedFile]);
 
+    useEffect(() => {
+        if (editor.state.mode == "SOURCE") {
+            textareaRef?.current?.focus();
+        }
+    }, [editor.state.mode]);
+
     return (
         <div className="p-1 m-1 w-auto h-auto overflow-hidden">
             {isSourceMode ? (
                 <textarea
+                    ref={textareaRef} 
                     className="border w-full h-full outline-none resize-none p-4"
                     value={editor.state.content as string}
                     onChange={(e) =>

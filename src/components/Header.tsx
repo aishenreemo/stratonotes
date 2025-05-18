@@ -42,6 +42,7 @@ function Header() {
                 </button>
             </div>
             <div className="mx-auto">{title}</div>
+            {/*
             <div className="flex items-center">
                 <button
                     onClick={() =>
@@ -54,6 +55,7 @@ function Header() {
                     <GoSidebarExpand />
                 </button>
             </div>
+            */}
             <div className="flex items-center">
                 <button onClick={() => invoke("close_app")}>
                     <IoCloseCircle />

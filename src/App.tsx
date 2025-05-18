@@ -3,10 +3,8 @@ import Sidebar from "./components/Sidebar";
 import Ribbons from "./components/Ribbons";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
-import Calendar from "react-calendar";
 import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
-import Graphviewer from "./components/Graphviewer";
 import FileList from "./components/FileList";
 import AIPrompt from "./components/AIPrompt";
 
@@ -28,11 +26,12 @@ function App() {
                 <Ribbons />
                 <Sidebar anchor="LEFT">
                     <Searchbar />
-                    <Graphviewer />
+                    <AIPrompt />
                     <NoteToolbar />
                     <FileList />
                 </Sidebar>
                 <Editor />
+                {/*
                 <Sidebar anchor="RIGHT">
                     <Calendar
                         className={[
@@ -41,8 +40,8 @@ function App() {
                             "[&>:last-child]:text-[0.75rem]",
                         ].join(" ")}
                     />
-                    <AIPrompt />
                 </Sidebar>
+                */}
                 <Footer />
             </div>
         </div>
