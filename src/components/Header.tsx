@@ -1,4 +1,4 @@
-import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { GoSidebarCollapse } from "react-icons/go";
 import { IoCloseCircle } from "react-icons/io5";
 import { useSidebar } from "../contexts/SidebarContext";
 import { invoke } from "@tauri-apps/api/core";
@@ -11,13 +11,13 @@ function Header() {
     let [title, setTitle] = useState("Stratonotes");
 
     useEffect(() => {
-        let filepath = explorer.state.selectedFile;
-        if (filepath === undefined) {
+        let file = explorer.state.selectedFile;
+        if (file === undefined) {
             setTitle("Stratonotes");
             return;
         }
 
-        let basename = filepath.replace(/\\/g, "/").split("/").pop();
+        let basename = file.title || file.path.replace(/\\/g, "/").split("/").pop();
         setTitle(`Stratonotes > ${basename}`);
     }, [explorer.state.selectedFile]);
 

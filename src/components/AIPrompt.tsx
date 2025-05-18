@@ -2,15 +2,17 @@ import { invoke } from "@tauri-apps/api/core";
 import { info, error } from "@tauri-apps/plugin-log";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { useEditor } from "../contexts/EditorContext";
-import { useExplorer } from "../contexts/ExplorerContext";
+import { Note, useExplorer } from "../contexts/ExplorerContext";
 import { useState } from "react";
 
 function AIPrompt() {
     const [promptText, setPromptText] = useState<string>("");
+    const [disabled, setDisabled] = useState<boolean>(false);
     const editor = useEditor();
     const explorer = useExplorer();
 
     async function onButtonPress() {
+        setDisabled(true);
         if (promptText.trim() == "") {
             return;
         }
@@ -29,12 +31,17 @@ function AIPrompt() {
             const name = await invoke("create_note", {
                 title: "AI Response",
                 content: response,
-            });
+            }).catch(error);
 
             info(`Prompted: ${promptText} on file ${name}.`);
+
+            await invoke("fetch_notes").then((files) => {
+                explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
+                explorer.dispatch({ type: "OPEN_NOTE", payload: (files as Note[]).length - 1 });
+            }).catch(error);
         } else {
             info(
-                `Prompted: ${promptText} on file '${explorer.state.selectedFile}'`
+                `Prompted: ${promptText} on file '${explorer.state.selectedFile.path}'`
             );
 
             let addedContent = (response as String)
@@ -42,13 +49,11 @@ function AIPrompt() {
                 .map((s) => `> ${s}`)
                 .join("\n");
 
-            editor.dispatch({
-                type: "ADD_CONTENT",
-                payload: addedContent,
-            });
+            editor.dispatch({ type: "ADD_CONTENT", payload: addedContent });
         }
 
         setPromptText("");
+        setDisabled(false);
     }
 
     return (
@@ -57,6 +62,7 @@ function AIPrompt() {
             <div className="flex w-full justify-stretch items-stretch p-1 gap-1">
                 <input
                     required
+                    disabled={disabled}
                     type="text"
                     placeholder="Write something"
                     className="border outline-none w-full p-1"
@@ -66,6 +72,7 @@ function AIPrompt() {
                     }
                 />
                 <button
+                    disabled={disabled}
                     className="border"
                     onClick={onButtonPress}
                 >

@@ -7,12 +7,19 @@ import {
 } from "react";
 
 type ExplorerAction =
-    | { type: "FETCH_NOTES"; payload: String[] }
+    | { type: "FETCH_NOTES"; payload: Note[] }
     | { type: "OPEN_NOTE"; payload: number };
 
+export interface Note {
+    title?: String;
+    path: String;
+    created: Date,
+    updated: Date,
+}
+
 interface ExplorerState {
-    files: String[];
-    selectedFile?: String;
+    files: Note[];
+    selectedFile?: Note;
 }
 
 interface ExplorerContextType {

@@ -46,7 +46,6 @@ async fn prompt(preamble: String, prompt: String) -> std::result::Result<String,
         .build();
 
     let response = agent.prompt(prompt).await;
-    info!("{response:?}");
     response.map_err(|e| e.to_string())
 }
 

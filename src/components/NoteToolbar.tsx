@@ -2,7 +2,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdNoteAdd } from "react-icons/md";
 import { PiFloppyDiskBackFill } from "react-icons/pi";
 import { invoke } from "@tauri-apps/api/core";
-import { useExplorer } from "../contexts/ExplorerContext";
+import { Note, useExplorer } from "../contexts/ExplorerContext";
 import { useEditor } from "../contexts/EditorContext";
 import { error, info } from "@tauri-apps/plugin-log";
 
@@ -39,14 +39,18 @@ function NoteToolbar() {
                     "transition-all",
                 ].join(" ")}
                 onClick={async () => {
-                    invoke("save_note", {
-                        filePath: explorer.state.selectedFile,
+                    await invoke("save_note", {
+                        filePath: explorer.state.selectedFile?.path,
                         noteContent: editor.state.content,
                     })
                         .then(() => {
-                            info(`Saved ${explorer.state.selectedFile}.`);
+                            info(`Saved ${explorer.state.selectedFile?.path}.`);
                         })
                         .catch(error);
+
+                    await invoke("fetch_notes").then((files) => {
+                        explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
+                    }).catch(error);
                 }}
             >
                 <PiFloppyDiskBackFill />
@@ -67,17 +71,14 @@ function NoteToolbar() {
                     "rounded",
                 ].join(" ")}
                 onClick={async () => {
-                    invoke("delete_note", {
-                        filePath: explorer.state.selectedFile,
-                    })
-                        .then(() => {
-                            info(`deleted ${explorer.state.selectedFile}.`);
-                            explorer.dispatch({
-                                type: "OPEN_NOTE",
-                                payload: -1,
-                            });
-                        })
-                        .catch(error);
+                    await invoke("delete_note", {
+                        filePath: explorer.state.selectedFile?.path,
+                    }).catch(error);
+
+                    await invoke("fetch_notes").then((files) => {
+                        explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
+                        explorer.dispatch({ type: "OPEN_NOTE", payload: -1 });
+                    }).catch(error);
                 }}
             >
                 <RiDeleteBin5Line />
@@ -98,13 +99,14 @@ function NoteToolbar() {
                     "transition-all",
                 ].join(" ")}
                 onClick={async () => {
-                    invoke("create_note", {
+                    const filepath = await invoke("create_note", {
                         title: "Untitled",
-                    })
-                        .then((name) => {
-                            info(`Created a new note named '${name}'.`);
-                        })
-                        .catch(error);
+                    }).catch(error);
+
+                    await invoke("fetch_notes").then((files) => {
+                        explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
+                        explorer.dispatch({ type: "OPEN_NOTE", payload: (files as Note[]).findIndex(f => f.path == filepath) });
+                    }).catch(error);
                 }}
             >
                 <MdNoteAdd />

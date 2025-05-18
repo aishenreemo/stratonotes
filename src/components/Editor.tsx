@@ -17,13 +17,12 @@ function Editor() {
             return;
         }
 
-        info(`Opened ${explorer.state.selectedFile}.`);
-        invoke("open_note", { filePath: explorer.state.selectedFile })
+        invoke("open_note", { filePath: explorer.state.selectedFile?.path })
             .then((content: any) =>
                 editor.dispatch({ type: "SET_CONTENT", payload: content })
             )
             .catch(error);
-    }, [explorer.state.selectedFile]);
+    }, [explorer.state.selectedFile?.path]);
 
     useEffect(() => {
         if (editor.state.mode == "SOURCE") {
@@ -35,7 +34,7 @@ function Editor() {
         <div className="p-1 m-1 w-auto h-auto overflow-hidden">
             {isSourceMode ? (
                 <textarea
-                    ref={textareaRef} 
+                    ref={textareaRef}
                     className="border w-full h-full outline-none resize-none p-4"
                     value={editor.state.content as string}
                     onChange={(e) =>

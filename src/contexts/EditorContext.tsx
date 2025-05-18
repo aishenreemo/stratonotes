@@ -24,7 +24,7 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
     } else if (action.type == "SET_CONTENT") {
         return { ...state, content: action.payload };
     } else if (action.type == "ADD_CONTENT") {
-        return { ...state, content: `${state.content}\n${action.payload}` };
+        return { ...state, content: `${state.content}\n\n${action.payload}` };
     } else if (action.type == "TOGGLE_MODE") {
         return {
             ...state,
