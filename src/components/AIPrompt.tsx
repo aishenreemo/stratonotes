@@ -4,6 +4,7 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import { useEditor } from "../contexts/EditorContext";
 import { Note, useExplorer } from "../contexts/ExplorerContext";
 import { useState } from "react";
+import { toast, Bounce } from "react-toastify";
 
 function AIPrompt() {
     const [promptText, setPromptText] = useState<string>("");
@@ -16,6 +17,16 @@ function AIPrompt() {
         if (promptText.trim() == "") {
             return;
         }
+
+        const promptNotificationID = toast("Prompting...", {
+            position: "bottom-right",
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            transition: Bounce,
+        });
 
         let content = "";
         if (editor.state.content.trim() != "") {
@@ -35,10 +46,20 @@ function AIPrompt() {
 
             info(`Prompted: ${promptText} on file ${name}.`);
 
-            await invoke("fetch_notes").then((files) => {
-                explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
-                explorer.dispatch({ type: "OPEN_NOTE", payload: (files as Note[]).length - 1 });
-            }).catch(error);
+            await invoke("fetch_notes")
+                .then((files) => {
+                    explorer.dispatch({
+                        type: "FETCH_NOTES",
+                        payload: files as Note[],
+                    });
+                    explorer.dispatch({
+                        type: "OPEN_NOTE",
+                        payload: (files as Note[]).findIndex(
+                            (f) => f.path == name
+                        ),
+                    });
+                })
+                .catch(error);
         } else {
             info(
                 `Prompted: ${promptText} on file '${explorer.state.selectedFile.path}'`
@@ -54,6 +75,7 @@ function AIPrompt() {
 
         setPromptText("");
         setDisabled(false);
+        toast.dismiss(promptNotificationID);
     }
 
     return (

@@ -5,6 +5,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { Note, useExplorer } from "../contexts/ExplorerContext";
 import { useEditor } from "../contexts/EditorContext";
 import { error, info } from "@tauri-apps/plugin-log";
+import { Bounce, toast } from "react-toastify";
 
 function NoteToolbar() {
     let explorer = useExplorer();
@@ -48,9 +49,25 @@ function NoteToolbar() {
                         })
                         .catch(error);
 
-                    await invoke("fetch_notes").then((files) => {
-                        explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
-                    }).catch(error);
+                    await invoke("fetch_notes")
+                        .then((files) => {
+                            explorer.dispatch({
+                                type: "FETCH_NOTES",
+                                payload: files as Note[],
+                            });
+                        })
+                        .catch(error);
+
+                    toast("Note saved.", {
+                        position: "bottom-right",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
                 }}
             >
                 <PiFloppyDiskBackFill />
@@ -71,14 +88,34 @@ function NoteToolbar() {
                     "rounded",
                 ].join(" ")}
                 onClick={async () => {
+                    if (explorer.state.selectedFile == undefined) {
+                        return;
+                    }
                     await invoke("delete_note", {
                         filePath: explorer.state.selectedFile?.path,
                     }).catch(error);
 
-                    await invoke("fetch_notes").then((files) => {
-                        explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
-                        explorer.dispatch({ type: "OPEN_NOTE", payload: -1 });
-                    }).catch(error);
+                    await invoke("fetch_notes")
+                        .then((files) => {
+                            explorer.dispatch({
+                                type: "FETCH_NOTES",
+                                payload: files as Note[],
+                            });
+                            explorer.dispatch({
+                                type: "OPEN_NOTE",
+                                payload: -1,
+                            });
+                        })
+                        .catch(error);
+                    toast("Note deleted.", {
+                        position: "bottom-right",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Bounce,
+                    });
                 }}
             >
                 <RiDeleteBin5Line />
@@ -103,10 +140,30 @@ function NoteToolbar() {
                         title: "Untitled",
                     }).catch(error);
 
-                    await invoke("fetch_notes").then((files) => {
-                        explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
-                        explorer.dispatch({ type: "OPEN_NOTE", payload: (files as Note[]).findIndex(f => f.path == filepath) });
-                    }).catch(error);
+                    await invoke("fetch_notes")
+                        .then((files) => {
+                            explorer.dispatch({
+                                type: "FETCH_NOTES",
+                                payload: files as Note[],
+                            });
+                            explorer.dispatch({
+                                type: "OPEN_NOTE",
+                                payload: (files as Note[]).findIndex(
+                                    (f) => f.path == filepath
+                                ),
+                            });
+                        })
+                        .catch(error);
+                    toast("Note created.", {
+                        position: "bottom-right",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: Bounce,
+                    });
                 }}
             >
                 <MdNoteAdd />

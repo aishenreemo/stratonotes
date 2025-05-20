@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import { useEditor } from "../contexts/EditorContext";
 import { useExplorer } from "../contexts/ExplorerContext";
-import { error, info } from "@tauri-apps/plugin-log";
+import { error } from "@tauri-apps/plugin-log";
 import { invoke } from "@tauri-apps/api/core";
 
 function Editor() {

@@ -7,9 +7,14 @@ function FileList() {
     let explorer = useExplorer();
 
     useEffect(() => {
-        invoke("fetch_notes").then((files) => {
-            explorer.dispatch({ type: "FETCH_NOTES", payload: files as Note[] });
-        }).catch(error);
+        invoke("fetch_notes")
+            .then((files) => {
+                explorer.dispatch({
+                    type: "FETCH_NOTES",
+                    payload: files as Note[],
+                });
+            })
+            .catch(error);
     }, [explorer.state.selectedFile]);
 
     return (
@@ -48,11 +53,15 @@ function FileList() {
                         ].join(" ")}
                         onClick={() => {
                             if (!isActive) {
-                                explorer.dispatch({ type: "OPEN_NOTE", payload: i })
+                                explorer.dispatch({
+                                    type: "OPEN_NOTE",
+                                    payload: i,
+                                });
                             }
                         }}
                     >
-                        {p?.title || p?.path?.replace(/\\/g, "/").split("/").pop()}
+                        {p?.title ||
+                            p?.path?.replace(/\\/g, "/").split("/").pop()}
                     </div>
                 );
             })}

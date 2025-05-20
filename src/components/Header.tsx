@@ -17,7 +17,8 @@ function Header() {
             return;
         }
 
-        let basename = file.title || file.path.replace(/\\/g, "/").split("/").pop();
+        let basename =
+            file.title || file.path.replace(/\\/g, "/").split("/").pop();
         setTitle(`Stratonotes > ${basename}`);
     }, [explorer.state.selectedFile]);
 

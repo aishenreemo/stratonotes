@@ -19,7 +19,7 @@ pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
 fn setup_app<R: Runtime>(app: &mut App<R>) -> Result<()> {
     dotenv().ok();
-
+    // app.handle().set_theme(Some(tauri::Theme::Dark));
     let path_settings = PathSettings::default();
     if !path_settings.exists_all() {
         info!("Some directories are missing, re-creating folders.",);

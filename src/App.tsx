@@ -7,10 +7,12 @@ import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
 import FileList from "./components/FileList";
 import AIPrompt from "./components/AIPrompt";
+import { ToastContainer } from "react-toastify";
 
 function App() {
     return (
         <div className="w-screen h-screen overflow-hidden">
+            <ToastContainer />
             <div
                 style={{
                     gridTemplateColumns: "auto auto 1fr auto",

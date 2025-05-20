@@ -13,8 +13,8 @@ type ExplorerAction =
 export interface Note {
     title?: String;
     path: String;
-    created: Date,
-    updated: Date,
+    created: Date;
+    updated: Date;
 }
 
 interface ExplorerState {
