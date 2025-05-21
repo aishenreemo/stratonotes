@@ -1,17 +1,27 @@
+import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 
+/**
+ * A search bar component that allows users to filter and find notes.
+ *
+ * @component
+ * @returns {React.Node} Returns a div element containing a text input for search and a search icon.
+ */
 function Searchbar() {
+    const [query, setQuery] = useState<string>("");
+
     return (
-        <div className="grid grid-cols-4 gap-1 p-1 m-1 w-auto h-10 border border-black">
+        <div className="p-1 m-1 w-auto h-10 border border-black flex items-center relative">
+
+            <MdSearch className="absolute left-2" />
             <input
                 placeholder="Search..."
                 type="text"
-                className="flex-grow col-span-3"
-            ></input>
+                className="pl-8 pr-2 outline-none w-full"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+            />
 
-            <button className="col-span-1 flex justify-center items-center">
-                <MdSearch />
-            </button>
         </div>
     );
 }

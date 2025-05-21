@@ -9,17 +9,17 @@
  * containing a credit notice.
  */
 function Footer() {
-  return (
-    <div
-      style={{
-        gridColumn: "1 / 5", // Ensures the footer spans all columns in a grid layout
-      }}
-      className="flex border-t py-1 px-2 text-[0.5rem]" // Styles for top border, padding, and small text size
-    >
-      <div className="mx-auto"></div> {/* Used for spacing/alignment */}
-      <div>Made by Ozone</div> {/* Displaying the credit */}
-    </div>
-  );
+    return (
+        <div
+            style={{
+                gridColumn: "1 / 5", // Ensures the footer spans all columns in a grid layout
+            }}
+            className="flex border-t py-1 px-2 text-[0.5rem]" // Styles for top border, padding, and small text size
+        >
+            <div className="mx-auto"></div> {/* Used for spacing/alignment */}
+            <div>Made by Ozone</div> {/* Displaying the credit */}
+        </div>
+    );
 }
 
 export default Footer;

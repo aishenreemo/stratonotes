@@ -1,9 +1,9 @@
 import {
-  createContext,
-  useReducer,
-  Dispatch,
-  ReactNode,
-  useContext,
+    createContext,
+    useReducer,
+    Dispatch,
+    ReactNode,
+    useContext,
 } from "react";
 
 /**
@@ -31,10 +31,10 @@ type EditorMode = "SOURCE" | "READING";
  * @property {undefined} [payload] - No payload is needed for this action.
  */
 type EditorAction =
-  | { type: "SET_CONTENT"; payload: String }
-  | { type: "ADD_CONTENT"; payload: String }
-  | { type: "SET_MODE"; payload: EditorMode }
-  | { type: "TOGGLE_MODE"; payload?: undefined };
+    | { type: "SET_CONTENT"; payload: String }
+    | { type: "ADD_CONTENT"; payload: String }
+    | { type: "SET_MODE"; payload: EditorMode }
+    | { type: "TOGGLE_MODE"; payload?: undefined };
 
 /**
  * @interface EditorState
@@ -43,8 +43,8 @@ type EditorAction =
  * @property {String} content - The markdown content currently loaded in the editor.
  */
 interface EditorState {
-  mode: EditorMode;
-  content: String;
+    mode: EditorMode;
+    content: String;
 }
 
 /**
@@ -58,21 +58,24 @@ interface EditorState {
  * @returns {EditorState} The new state after applying the action.
  */
 function editorReducer(state: EditorState, action: EditorAction): EditorState {
-  switch (action.type) {
-    case "SET_MODE":
-      return { ...state, mode: action.payload };
-    case "SET_CONTENT":
-      return { ...state, content: action.payload };
-    case "ADD_CONTENT":
-      return { ...state, content: `${state.content}\n\n${action.payload}` };
-    case "TOGGLE_MODE":
-      return {
-        ...state,
-        mode: state.mode === "SOURCE" ? "READING" : "SOURCE",
-      };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case "SET_MODE":
+            return { ...state, mode: action.payload };
+        case "SET_CONTENT":
+            return { ...state, content: action.payload };
+        case "ADD_CONTENT":
+            return {
+                ...state,
+                content: `${state.content}\n\n${action.payload}`,
+            };
+        case "TOGGLE_MODE":
+            return {
+                ...state,
+                mode: state.mode === "SOURCE" ? "READING" : "SOURCE",
+            };
+        default:
+            return state;
+    }
 }
 
 /**
@@ -82,8 +85,8 @@ function editorReducer(state: EditorState, action: EditorAction): EditorState {
  * @property {Dispatch<EditorAction>} dispatch - The dispatch function to send actions to the editor reducer.
  */
 interface EditorContextType {
-  state: EditorState;
-  dispatch: Dispatch<EditorAction>;
+    state: EditorState;
+    dispatch: Dispatch<EditorAction>;
 }
 
 // Create the context with an initial undefined value. It will be provided by the EditorProvider.
@@ -102,16 +105,16 @@ const EditorContext = createContext<EditorContextType | undefined>(undefined);
  * @returns {React.Node} A Context Provider wrapping the children.
  */
 export function EditorProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(editorReducer, {
-    mode: "READING", // Initial mode is 'READING'
-    content: "", // Initial content is an empty string
-  });
+    const [state, dispatch] = useReducer(editorReducer, {
+        mode: "READING", // Initial mode is 'READING'
+        content: "", // Initial content is an empty string
+    });
 
-  return (
-    <EditorContext.Provider value={{ state, dispatch }}>
-      {children}
-    </EditorContext.Provider>
-  );
+    return (
+        <EditorContext.Provider value={{ state, dispatch }}>
+            {children}
+        </EditorContext.Provider>
+    );
 }
 
 /**
@@ -126,9 +129,9 @@ export function EditorProvider({ children }: { children: ReactNode }) {
  * @throws {Error} If `useEditor` is called outside of an `EditorProvider`.
  */
 export function useEditor() {
-  const context = useContext(EditorContext);
-  if (!context) {
-    throw new Error("useEditor must be used within an EditorProvider");
-  }
-  return context;
+    const context = useContext(EditorContext);
+    if (!context) {
+        throw new Error("useEditor must be used within an EditorProvider");
+    }
+    return context;
 }

@@ -17,46 +17,49 @@ import { SidebarAnchor, useSidebar } from "../contexts/SidebarContext";
  * @returns {React.Node} A `Resizable` component configured as a sidebar.
  */
 function Sidebar({
-  anchor,
-  children,
+    anchor,
+    children,
 }: {
-  anchor: SidebarAnchor;
-  children?: ReactNode;
+    anchor: SidebarAnchor;
+    children?: ReactNode;
 }) {
-  const sidebar = useSidebar(); // Access sidebar state and dispatch from context
+    const sidebar = useSidebar(); // Access sidebar state and dispatch from context
 
-  // Determine if the current sidebar instance is opened based on its anchor
-  const isOpened =
-    anchor === "LEFT" ? sidebar.state.isLeftOpened : sidebar.state.isRightOpened;
+    // Determine if the current sidebar instance is opened based on its anchor
+    const isOpened =
+        anchor === "LEFT"
+            ? sidebar.state.isLeftOpened
+            : sidebar.state.isRightOpened;
 
-  return (
-    <Resizable
-      className={[
-        "box-border", // Ensures padding and border are included in the element's total width and height
-        "border", // Adds a border around the sidebar
-        "transition-all", // Smooth transition for size changes
-        "0.05s", // Transition duration
-        "overflow-hidden", // Hides content that overflows the sidebar's bounds
-        "flex", // Enables flexbox layout for children
-        "flex-col", // Arranges children in a column
-        "h-full", // Ensures the sidebar takes full height of its parent
-      ].join(" ")}
-      minWidth={isOpened ? 256 : 0} // Minimum width: 256px when open, 0px when closed
-      maxWidth={512} // Maximum width allowed for resizing
-      enable={{
-        // Define which resize handles are enabled
-        left: anchor === "RIGHT", // Right sidebar can be resized from its left edge
-        right: anchor === "LEFT", // Left sidebar can be resized from its right edge
-      }}
-      style={{
-        // Grid column placement based on anchor
-        gridColumn: anchor === "LEFT" ? "2 / 3" : "4 / 5",
-      }}
-      size={{ width: isOpened ? "16rem" : 0 }} // Initial size: 16rem (256px) when open, 0 when closed
-    >
-      {children} {/* Render the children passed to the Sidebar component */}
-    </Resizable>
-  );
+    return (
+        <Resizable
+            className={[
+                "box-border", // Ensures padding and border are included in the element's total width and height
+                "border", // Adds a border around the sidebar
+                "transition-all", // Smooth transition for size changes
+                "0.05s", // Transition duration
+                "overflow-hidden", // Hides content that overflows the sidebar's bounds
+                "flex", // Enables flexbox layout for children
+                "flex-col", // Arranges children in a column
+                "h-full", // Ensures the sidebar takes full height of its parent
+            ].join(" ")}
+            minWidth={isOpened ? 256 : 0} // Minimum width: 256px when open, 0px when closed
+            maxWidth={512} // Maximum width allowed for resizing
+            enable={{
+                // Define which resize handles are enabled
+                left: anchor === "RIGHT", // Right sidebar can be resized from its left edge
+                right: anchor === "LEFT", // Left sidebar can be resized from its right edge
+            }}
+            style={{
+                // Grid column placement based on anchor
+                gridColumn: anchor === "LEFT" ? "2 / 3" : "4 / 5",
+            }}
+            size={{ width: isOpened ? "16rem" : 0 }} // Initial size: 16rem (256px) when open, 0 when closed
+        >
+            {children}{" "}
+            {/* Render the children passed to the Sidebar component */}
+        </Resizable>
+    );
 }
 
 export default Sidebar;

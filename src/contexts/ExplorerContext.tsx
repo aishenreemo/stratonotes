@@ -1,9 +1,9 @@
 import {
-  createContext,
-  useReducer,
-  Dispatch,
-  ReactNode,
-  useContext,
+    createContext,
+    useReducer,
+    Dispatch,
+    ReactNode,
+    useContext,
 } from "react";
 
 /**
@@ -11,8 +11,8 @@ import {
  * @description Defines the types of actions that can be dispatched to the explorer reducer.
  */
 type ExplorerAction =
-  | { type: "FETCH_NOTES"; payload: Note[] }
-  | { type: "OPEN_NOTE"; payload: number };
+    | { type: "FETCH_NOTES"; payload: Note[] }
+    | { type: "OPEN_NOTE"; payload: number };
 
 /**
  * @interface Note
@@ -23,10 +23,10 @@ type ExplorerAction =
  * @property {Date} updated - The last updated timestamp of the note.
  */
 export interface Note {
-  title?: String;
-  path: String;
-  created: Date;
-  updated: Date;
+    title?: String;
+    path: String;
+    created: Date;
+    updated: Date;
 }
 
 /**
@@ -36,8 +36,8 @@ export interface Note {
  * @property {Note} [selectedFile] - The currently selected note, if any.
  */
 interface ExplorerState {
-  files: Note[];
-  selectedFile?: Note;
+    files: Note[];
+    selectedFile?: Note;
 }
 
 /**
@@ -47,8 +47,8 @@ interface ExplorerState {
  * @property {Dispatch<ExplorerAction>} dispatch - The dispatch function to send actions to the explorer reducer.
  */
 interface ExplorerContextType {
-  state: ExplorerState;
-  dispatch: Dispatch<ExplorerAction>;
+    state: ExplorerState;
+    dispatch: Dispatch<ExplorerAction>;
 }
 
 /**
@@ -61,36 +61,36 @@ interface ExplorerContextType {
  * @returns {ExplorerState} The new state after applying the action.
  */
 function explorerReducer(state: ExplorerState, action: ExplorerAction) {
-  switch (action.type) {
-    case "FETCH_NOTES":
-      return {
-        ...state,
-        files: action.payload,
-      };
-    case "OPEN_NOTE":
-      // If payload is -1, deselect any currently open note
-      if (action.payload === -1) {
-        return {
-          ...state,
-          selectedFile: undefined,
-        };
-      }
-      // If payload is a valid index, select the corresponding note from the files array
-      if (action.payload < state.files.length) {
-        return {
-          ...state,
-          selectedFile: state.files[action.payload],
-        };
-      }
-      return state; // Return current state if index is out of bounds
-    default:
-      return state; // Return current state for unknown action types
-  }
+    switch (action.type) {
+        case "FETCH_NOTES":
+            return {
+                ...state,
+                files: action.payload,
+            };
+        case "OPEN_NOTE":
+            // If payload is -1, deselect any currently open note
+            if (action.payload === -1) {
+                return {
+                    ...state,
+                    selectedFile: undefined,
+                };
+            }
+            // If payload is a valid index, select the corresponding note from the files array
+            if (action.payload < state.files.length) {
+                return {
+                    ...state,
+                    selectedFile: state.files[action.payload],
+                };
+            }
+            return state; // Return current state if index is out of bounds
+        default:
+            return state; // Return current state for unknown action types
+    }
 }
 
 // Create the context with an initial undefined value. It will be provided by the ExplorerProvider.
 const ExplorerContext = createContext<ExplorerContextType | undefined>(
-  undefined
+    undefined
 );
 
 /**
@@ -106,16 +106,16 @@ const ExplorerContext = createContext<ExplorerContextType | undefined>(
  * @returns {React.Node} A Context Provider wrapping the children.
  */
 export function ExplorerProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(explorerReducer, {
-    selectedFile: undefined, // No file selected initially
-    files: [], // Empty array of files initially
-  });
+    const [state, dispatch] = useReducer(explorerReducer, {
+        selectedFile: undefined, // No file selected initially
+        files: [], // Empty array of files initially
+    });
 
-  return (
-    <ExplorerContext.Provider value={{ state, dispatch }}>
-      {children}
-    </ExplorerContext.Provider>
-  );
+    return (
+        <ExplorerContext.Provider value={{ state, dispatch }}>
+            {children}
+        </ExplorerContext.Provider>
+    );
 }
 
 /**
@@ -130,13 +130,13 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
  * @throws {Error} If `useExplorer` is called outside of an `ExplorerProvider`.
  */
 export function useExplorer() {
-  const context = useContext(ExplorerContext);
+    const context = useContext(ExplorerContext);
 
-  if (!context) {
-    // This error message seems to be a copy-paste from useEditor,
-    // it should ideally be "useExplorer must be used within an ExplorerProvider".
-    throw new Error("useEditor must be used within an EditorProvider");
-  }
+    if (!context) {
+        // This error message seems to be a copy-paste from useEditor,
+        // it should ideally be "useExplorer must be used within an ExplorerProvider".
+        throw new Error("useEditor must be used within an EditorProvider");
+    }
 
-  return context;
+    return context;
 }

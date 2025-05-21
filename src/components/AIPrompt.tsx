@@ -99,7 +99,7 @@ function AIPrompt() {
                     required
                     disabled={disabled}
                     type="text"
-                    placeholder="Write something"
+                    placeholder="Write something..."
                     className="border outline-none w-full p-1"
                     value={promptText}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

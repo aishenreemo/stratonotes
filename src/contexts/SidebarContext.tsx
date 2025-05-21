@@ -1,9 +1,9 @@
 import {
-  createContext,
-  useReducer,
-  Dispatch,
-  ReactNode,
-  useContext,
+    createContext,
+    useReducer,
+    Dispatch,
+    ReactNode,
+    useContext,
 } from "react";
 
 /**
@@ -26,8 +26,8 @@ type SidebarActionType = "TOGGLE_OPENED";
  * @property {SidebarActionType} type - The type of action to perform, e.g., 'TOGGLE_OPENED'.
  */
 interface SidebarAction {
-  anchor: SidebarAnchor;
-  type: SidebarActionType;
+    anchor: SidebarAnchor;
+    type: SidebarActionType;
 }
 
 /**
@@ -37,8 +37,8 @@ interface SidebarAction {
  * @property {boolean} isRightOpened - Indicates whether the right sidebar is currently open.
  */
 interface SidebarState {
-  isLeftOpened: boolean;
-  isRightOpened: boolean;
+    isLeftOpened: boolean;
+    isRightOpened: boolean;
 }
 
 /**
@@ -48,8 +48,8 @@ interface SidebarState {
  * @property {Dispatch<SidebarAction>} dispatch - The dispatch function to send actions to the sidebar reducer.
  */
 interface SidebarContextType {
-  state: SidebarState;
-  dispatch: Dispatch<SidebarAction>;
+    state: SidebarState;
+    dispatch: Dispatch<SidebarAction>;
 }
 
 /**
@@ -61,19 +61,22 @@ interface SidebarContextType {
  * @param {SidebarAction} action - The action to be performed on the sidebar state.
  * @returns {SidebarState} The new state after applying the action.
  */
-function sidebarReducer(state: SidebarState, action: SidebarAction): SidebarState {
-  // Determine the current opened state of the target sidebar
-  const isOpened =
-    action.anchor === "LEFT" ? state.isLeftOpened : state.isRightOpened;
+function sidebarReducer(
+    state: SidebarState,
+    action: SidebarAction
+): SidebarState {
+    // Determine the current opened state of the target sidebar
+    const isOpened =
+        action.anchor === "LEFT" ? state.isLeftOpened : state.isRightOpened;
 
-  if (action.type === "TOGGLE_OPENED") {
-    // Toggle the opened state of the specified sidebar
-    return action.anchor === "LEFT"
-      ? { ...state, isLeftOpened: !isOpened }
-      : { ...state, isRightOpened: !isOpened };
-  }
+    if (action.type === "TOGGLE_OPENED") {
+        // Toggle the opened state of the specified sidebar
+        return action.anchor === "LEFT"
+            ? { ...state, isLeftOpened: !isOpened }
+            : { ...state, isRightOpened: !isOpened };
+    }
 
-  return state; // Return current state for any unhandled action types
+    return state; // Return current state for any unhandled action types
 }
 
 // Create the context with an initial undefined value. It will be provided by the SidebarProvider.
@@ -91,16 +94,16 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
  * @returns {React.Node} A Context Provider wrapping the children.
  */
 export function SidebarProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(sidebarReducer, {
-    isLeftOpened: false, // Left sidebar is closed by default
-    isRightOpened: false, // Right sidebar is closed by default
-  });
+    const [state, dispatch] = useReducer(sidebarReducer, {
+        isLeftOpened: false, // Left sidebar is closed by default
+        isRightOpened: false, // Right sidebar is closed by default
+    });
 
-  return (
-    <SidebarContext.Provider value={{ state, dispatch }}>
-      {children}
-    </SidebarContext.Provider>
-  );
+    return (
+        <SidebarContext.Provider value={{ state, dispatch }}>
+            {children}
+        </SidebarContext.Provider>
+    );
 }
 
 /**
@@ -115,12 +118,12 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
  * @throws {Error} If `useSidebar` is called outside of a `SidebarProvider`.
  */
 export function useSidebar() {
-  const context = useContext(SidebarContext);
+    const context = useContext(SidebarContext);
 
-  if (!context) {
-    // Corrected error message to be specific to this context
-    throw new Error("useSidebar must be used within a SidebarProvider");
-  }
+    if (!context) {
+        // Corrected error message to be specific to this context
+        throw new Error("useSidebar must be used within a SidebarProvider");
+    }
 
-  return context;
+    return context;
 }

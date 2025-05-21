@@ -21,44 +21,44 @@ import { ToastContainer } from "react-toastify";
  * @returns {React.Node} The root `div` element containing the entire application UI.
  */
 function App() {
-  return (
-    <div className="w-screen h-screen overflow-hidden">
-      {/* ToastContainer for displaying notifications throughout the app */}
-      <ToastContainer />
+    return (
+        <div className="w-screen h-screen overflow-hidden">
+            {/* ToastContainer for displaying notifications throughout the app */}
+            <ToastContainer />
 
-      {/* Main application grid layout */}
-      <div
-        style={{
-          // Defines the grid columns: auto for ribbons, auto for left sidebar,
-          // 1fr for the main editor content, and auto for the right sidebar (if present)
-          gridTemplateColumns: "auto auto 1fr auto",
-          // Defines the grid rows: auto for header, 1fr for main content area, auto for footer
-          gridTemplateRows: "auto 1fr auto",
-        }}
-        className={[
-          "w-full h-full rounded-sm max-w-screen max-h-screen",
-          "grid", // Enables CSS Grid
-          "overflow-hidden", // Prevents overflow issues within the grid container
-        ].join(" ")}
-      >
-        {/* Header spanning across all grid columns */}
-        <Header />
+            {/* Main application grid layout */}
+            <div
+                style={{
+                    // Defines the grid columns: auto for ribbons, auto for left sidebar,
+                    // 1fr for the main editor content, and auto for the right sidebar (if present)
+                    gridTemplateColumns: "auto auto 1fr auto",
+                    // Defines the grid rows: auto for header, 1fr for main content area, auto for footer
+                    gridTemplateRows: "auto 1fr auto",
+                }}
+                className={[
+                    "w-full h-full rounded-sm max-w-screen max-h-screen",
+                    "grid", // Enables CSS Grid
+                    "overflow-hidden", // Prevents overflow issues within the grid container
+                ].join(" ")}
+            >
+                {/* Header spanning across all grid columns */}
+                <Header />
 
-        {/* Ribbons component in the first grid column */}
-        <Ribbons />
+                {/* Ribbons component in the first grid column */}
+                <Ribbons />
 
-        {/* Left Sidebar containing search, AI prompt, note toolbar, and file list */}
-        <Sidebar anchor="LEFT">
-          <Searchbar />
-          <AIPrompt />
-          <NoteToolbar />
-          <FileList />
-        </Sidebar>
+                {/* Left Sidebar containing search, AI prompt, note toolbar, and file list */}
+                <Sidebar anchor="LEFT">
+                    <Searchbar />
+                    <AIPrompt />
+                    <NoteToolbar />
+                    <FileList />
+                </Sidebar>
 
-        {/* Main Editor component */}
-        <Editor />
+                {/* Main Editor component */}
+                <Editor />
 
-        {/*
+                {/*
         // Example of a Right Sidebar (currently commented out)
         <Sidebar anchor="RIGHT">
           <Calendar
@@ -71,11 +71,11 @@ function App() {
         </Sidebar>
         */}
 
-        {/* Footer spanning across all grid columns */}
-        <Footer />
-      </div>
-    </div>
-  );
+                {/* Footer spanning across all grid columns */}
+                <Footer />
+            </div>
+        </div>
+    );
 }
 
 export default App;
