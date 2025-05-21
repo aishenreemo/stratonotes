@@ -6,6 +6,19 @@ import { Note, useExplorer } from "../contexts/ExplorerContext";
 import { useState } from "react";
 import { toast, Bounce } from "react-toastify";
 
+/**
+ * AIPrompt Component
+ *
+ * @component
+ * @description This component provides an interactive input field and a submission button for users to send prompts to an AI.
+ * It integrates with the `EditorContext` to include the current note's content as preamble for the AI, and with the
+ * `ExplorerContext` to manage the display of AI responses—either by creating a new note for the response or appending
+ * it to the current note. It uses Tauri's `invoke` for backend communication with the AI model and `react-toastify`
+ * for user feedback.
+ *
+ * @returns {React.Node} A `div` element containing a heading, a text input field for the AI prompt,
+ * and a button to submit the prompt.
+ */
 function AIPrompt() {
     const [promptText, setPromptText] = useState<string>("");
     const [disabled, setDisabled] = useState<boolean>(false);
