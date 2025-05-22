@@ -7,7 +7,6 @@ import {
 } from "react";
 
 /**
- * @typedef {'FETCH_NOTES' | 'OPEN_NOTE'} ExplorerActionType
  * @description Defines the types of actions that can be dispatched to the explorer reducer.
  */
 type ExplorerAction =
@@ -140,7 +139,7 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
  * @returns {ExplorerContextType} An object containing the current explorer state and the dispatch function.
  * @throws {Error} If `useExplorer` is called outside of an `ExplorerProvider`.
  */
-export function useExplorer() {
+export function useExplorer(): ExplorerContextType {
     const context = useContext(ExplorerContext);
 
     if (!context) {

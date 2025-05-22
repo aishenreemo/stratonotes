@@ -15,9 +15,9 @@ import { Bounce, toast } from "react-toastify";
  * This component integrates with the `ExplorerContext` to manage file selection and fetching, and the `EditorContext`
  * for accessing note content. It also utilizes Tauri's `invoke` for backend communication and `react-toastify` for user notifications.
  *
- * @returns {React.Node} A `div` element containing three interactive buttons for note operations.
+ * @returns {React.ReactNode} A `div` element containing three interactive buttons for note operations.
  */
-function NoteToolbar() {
+function NoteToolbar(): React.ReactNode {
     const explorer = useExplorer();
     const editor = useEditor();
 

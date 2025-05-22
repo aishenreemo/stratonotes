@@ -15,10 +15,10 @@ import { invoke } from "@tauri-apps/api/core";
  * The component interacts with the `ExplorerContext` to load the content of the currently
  * selected note and with the `EditorContext` to manage the editor's content and mode.
  *
- * @returns {React.Node} A `div` element containing either a `textarea` or a `MarkdownPreview`
+ * @returns {React.ReactNode} A `div` element containing either a `textarea` or a `MarkdownPreview`
  * based on the current editor mode.
  */
-function Editor() {
+function Editor(): React.ReactNode {
     const explorer = useExplorer();
     const editor = useEditor();
     const isSourceMode = editor.state.mode === "SOURCE";

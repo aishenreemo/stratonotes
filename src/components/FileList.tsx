@@ -12,9 +12,9 @@ import { error } from "@tauri-apps/plugin-log";
  * It uses the `ExplorerContext` to manage and display the list of notes and to handle
  * the selection of a specific note.
  *
- * @returns {React.Node} A `div` element containing a scrollable list of clickable note titles.
+ * @returns {ReactNode} A `div` element containing a scrollable list of clickable note titles.
  */
-function FileList() {
+function FileList(): React.ReactNode {
     const explorer = useExplorer();
 
     /**

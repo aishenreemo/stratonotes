@@ -18,9 +18,9 @@ import { ToastContainer } from "react-toastify";
  * the header, ribbons, sidebars (left and potentially right), the main editor area,
  * and the footer. It also includes a `ToastContainer` for displaying notifications.
  *
- * @returns {React.Node} The root `div` element containing the entire application UI.
+ * @returns {React.ReactNode} The root `div` element containing the entire application UI.
  */
-function App() {
+function App(): React.ReactNode {
     return (
         <div className="w-screen h-screen overflow-hidden">
             {/* ToastContainer for displaying notifications throughout the app */}

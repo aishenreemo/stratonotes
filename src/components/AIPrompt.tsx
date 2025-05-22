@@ -16,10 +16,10 @@ import { toast, Bounce } from "react-toastify";
  * it to the current note. It uses Tauri's `invoke` for backend communication with the AI model and `react-toastify`
  * for user feedback.
  *
- * @returns {React.Node} A `div` element containing a heading, a text input field for the AI prompt,
+ * @returns {React.ReactNode} A `div` element containing a heading, a text input field for the AI prompt,
  * and a button to submit the prompt.
  */
-function AIPrompt() {
+function AIPrompt(): React.ReactNode {
     const [promptText, setPromptText] = useState<string>("");
     const [disabled, setDisabled] = useState<boolean>(false);
     const editor = useEditor();

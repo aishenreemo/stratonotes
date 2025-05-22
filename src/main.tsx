@@ -18,9 +18,9 @@ import { ExplorerProvider } from "./contexts/ExplorerContext.tsx";
  *
  * @param {object} props - The component props.
  * @param {ReactNode} props.children - The child components that will be rendered within the context providers.
- * @returns {React.Node} A hierarchy of context providers wrapping the children.
+ * @returns {React.ReactNode} A hierarchy of context providers wrapping the children.
  */
-function AppProvider({ children }: { children: ReactNode }) {
+function AppProvider({ children }: { children: ReactNode }): React.ReactNode {
     return (
         // ExplorerProvider makes file system and note selection state available
         <ExplorerProvider>

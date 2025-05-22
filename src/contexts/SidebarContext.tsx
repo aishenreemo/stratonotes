@@ -7,13 +7,11 @@ import {
 } from "react";
 
 /**
- * @typedef {'LEFT' | 'RIGHT'} SidebarAnchor
  * @description Defines the possible anchoring positions for a sidebar: either to the 'LEFT' or 'RIGHT'.
  */
 export type SidebarAnchor = "LEFT" | "RIGHT";
 
 /**
- * @typedef {'TOGGLE_OPENED'} SidebarActionType
  * @description Defines the type of action that can be performed on a sidebar's state.
  * Currently, only 'TOGGLE_OPENED' is supported.
  */

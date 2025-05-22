@@ -11,10 +11,10 @@ import { useEditor } from "../contexts/EditorContext";
  * that provides quick access to various editor modes and application settings.
  * It currently allows users to toggle between source code (text) and Markdown preview modes.
  *
- * @returns {React.Node} A `div` element serving as the ribbons sidebar, containing
+ * @returns {React.ReactNode} A `div` element serving as the ribbons sidebar, containing
  * buttons for different functionalities.
  */
-function Ribbons() {
+function Ribbons(): React.ReactNode {
     const editor = useEditor();
 
     return (

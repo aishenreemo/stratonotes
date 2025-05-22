@@ -14,9 +14,9 @@ import { useExplorer } from "../contexts/ExplorerContext";
  * collapsing/expanding the sidebar and closing the application. This component
  * also allows for window dragging due to the `data-tauri-drag-region` attribute.
  *
- * @returns {React.Node} A header element containing the application title and control buttons.
+ * @returns {React.ReactNode} A header element containing the application title and control buttons.
  */
-function Header() {
+function Header(): React.ReactNode {
     const sidebar = useSidebar();
     const explorer = useExplorer();
     const [title, setTitle] = useState("Stratonotes"); // Default application title

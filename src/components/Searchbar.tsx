@@ -6,9 +6,9 @@ import { useExplorer } from "../contexts/ExplorerContext";
  * A search bar component that allows users to filter and find notes.
  *
  * @component
- * @returns {React.Node} Returns a div element containing a text input for search and a search icon.
+ * @returns {React.ReactNode} Returns a div element containing a text input for search and a search icon.
  */
-function Searchbar() {
+function Searchbar(): React.ReactNode {
     const [query, setQuery] = useState<string>("");
     const explorer = useExplorer();
 
