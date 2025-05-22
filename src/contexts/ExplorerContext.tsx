@@ -12,7 +12,9 @@ import {
  */
 type ExplorerAction =
     | { type: "FETCH_NOTES"; payload: Note[] }
-    | { type: "OPEN_NOTE"; payload: number };
+    | { type: "OPEN_NOTE"; payload: number }
+    | { type: "SET_QUERY"; payload: string };
+// | { type: "FILTER_NOTES"; payload: Note[]};
 
 /**
  * @interface Note
@@ -38,6 +40,7 @@ export interface Note {
 interface ExplorerState {
     files: Note[];
     selectedFile?: Note;
+    query: string;
 }
 
 /**
@@ -83,6 +86,13 @@ function explorerReducer(state: ExplorerState, action: ExplorerAction) {
                 };
             }
             return state; // Return current state if index is out of bounds
+
+        case "SET_QUERY":
+            return {
+                ...state,
+                query: action.payload.toLowerCase(),
+            };
+
         default:
             return state; // Return current state for unknown action types
     }
@@ -109,6 +119,7 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
     const [state, dispatch] = useReducer(explorerReducer, {
         selectedFile: undefined, // No file selected initially
         files: [], // Empty array of files initially
+        query: "", // Query is set to blank initially
     });
 
     return (

@@ -49,42 +49,57 @@ function FileList() {
             ].join(" ")}
         >
             {/* Map over the files in the explorer state to render each note */}
-            {explorer.state.files.map((p, i) => {
-                // Determine if the current note is the actively selected one
-                const isActive = p.path === explorer.state.selectedFile?.path;
-                return (
-                    <div
-                        key={i} // Unique key for each list item
-                        className={[
-                            "p-1",
-                            "cursor-pointer",
-                            "hover:bg-gray-100",
-                            "hover:drop-shadow-md",
-                            "hover:scale-102",
-                            "rounded",
-                            "transition-all",
-                            "min-h-8",
-                            "text-ellipsis",
-                            "whitespace-nowrap",
-                            "overflow-clip",
-                            isActive ? "bg-gray-100" : "", // Apply active styling if selected
-                        ].join(" ")}
-                        onClick={() => {
-                            // Only dispatch if a different note is clicked to avoid unnecessary re-renders
-                            if (!isActive) {
-                                explorer.dispatch({
-                                    type: "OPEN_NOTE",
-                                    payload: i, // Payload is the index of the clicked note
-                                });
-                            }
-                        }}
-                    >
-                        {/* Display the note's title, or derive it from the path if no title exists */}
-                        {p?.title ||
-                            p?.path?.replace(/\\/g, "/").split("/").pop()}
-                    </div>
-                );
-            })}
+
+            {explorer.state.files
+                .map((p, i) => [p, i])
+                .filter(
+                    (p) =>
+                        (p[0] as Note).path.includes(explorer.state.query) ||
+                        (p[0] as Note).title
+                            ?.toLowerCase()
+                            ?.includes(explorer.state.query)
+                )
+                .map((p, i) => {
+                    // Determine if the current note is the actively selected one
+                    const isActive =
+                        (p[0] as Note).path ===
+                        explorer.state.selectedFile?.path;
+                    return (
+                        <div
+                            key={i} // Unique key for each list item
+                            className={[
+                                "p-1",
+                                "cursor-pointer",
+                                "hover:bg-gray-100",
+                                "hover:drop-shadow-md",
+                                "hover:scale-102",
+                                "rounded",
+                                "transition-all",
+                                "min-h-8",
+                                "text-ellipsis",
+                                "whitespace-nowrap",
+                                "overflow-clip",
+                                isActive ? "bg-gray-100" : "", // Apply active styling if selected
+                            ].join(" ")}
+                            onClick={() => {
+                                // Only dispatch if a different note is clicked to avoid unnecessary re-renders
+                                if (!isActive) {
+                                    explorer.dispatch({
+                                        type: "OPEN_NOTE",
+                                        payload: p[1] as number, // Payload is the index of the clicked note
+                                    });
+                                }
+                            }}
+                        >
+                            {/* Display the note's title, or derive it from the path if no title exists */}
+                            {(p[0] as Note)?.title ||
+                                (p[0] as Note)?.path
+                                    ?.replace(/\\/g, "/")
+                                    .split("/")
+                                    .pop()}
+                        </div>
+                    );
+                })}
         </div>
     );
 }
