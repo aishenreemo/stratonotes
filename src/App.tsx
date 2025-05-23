@@ -26,6 +26,29 @@ function App() {
             {/* ToastContainer for displaying notifications throughout the app */}
             <ToastContainer />
 
+            {/* Cloud animation background */}
+            <div className="clouds-container">
+                <div className="cloud" style={{ top: '20%', animationDuration: '35s' }}></div>
+                <div className="cloud" style={{ top: '40%', animationDuration: '45s', animationDelay: '5s' }}></div>
+                <div className="cloud" style={{ top: '60%', animationDuration: '40s', animationDelay: '10s' }}></div>
+                
+                {/* Decorative clouds in lower left and lower right */}
+                <img
+                    src="/assets/images/cloud.png"
+                    alt=""
+                    className="decorative-cloud-image fixed left-0 bottom-0 
+                        w-[35vw]  /* Adjusted to 35% of viewport width */
+                        min-w-[400px]  /* Increased minimum width */
+                        max-w-[800px]  /* Increased maximum width */
+                        h-auto 
+                        opacity-100 
+                        pointer-events-none 
+                        z-0
+                        transition-all duration-300
+                        scale-125"
+                />
+            </div>
+
             {/* Main application grid layout */}
             <div
                 style={{

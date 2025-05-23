@@ -36,55 +36,79 @@ function FileList() {
     return (
         <div
             className={[
-                "flex flex-col gap-1",
-                "m-1",
-                "p-2 pr-4",
-                "border",
-                "border-black",
-                "w-auto",
-                "h-10",
-                "flex-grow",
-                "overflow-y-scroll",
-                "overflow-x-hidden",
+            "flex flex-col gap-1",
+            "mx-2",
+            "my-2",
+            "p-2 pr-6",
+            "border",
+            "border-black rounded-lg",
+            "w-auto",
+            "h-10",
+            "flex-grow",
+            "overflow-y-scroll",
+            "overflow-x-hidden",
+            "scrollbar-thin",
+            "scrollbar-thumb-gray-400",
+            "scrollbar-thumb-rounded-br", // Rounds only bottom-right of thumb
             ].join(" ")}
+            style={{
+            scrollbarColor: "#9ca3af transparent", // gray-400 thumb, transparent track
+            scrollbarWidth: "thin",
+            }}
         >
             {/* Map over the files in the explorer state to render each note */}
             {explorer.state.files.map((p, i) => {
-                // Determine if the current note is the actively selected one
-                const isActive = p.path === explorer.state.selectedFile?.path;
-                return (
-                    <div
-                        key={i} // Unique key for each list item
-                        className={[
-                            "p-1",
-                            "cursor-pointer",
-                            "hover:bg-gray-100",
-                            "hover:drop-shadow-md",
-                            "hover:scale-102",
-                            "rounded",
-                            "transition-all",
-                            "min-h-8",
-                            "text-ellipsis",
-                            "whitespace-nowrap",
-                            "overflow-clip",
-                            isActive ? "bg-gray-100" : "", // Apply active styling if selected
-                        ].join(" ")}
-                        onClick={() => {
-                            // Only dispatch if a different note is clicked to avoid unnecessary re-renders
-                            if (!isActive) {
-                                explorer.dispatch({
-                                    type: "OPEN_NOTE",
-                                    payload: i, // Payload is the index of the clicked note
-                                });
-                            }
-                        }}
-                    >
-                        {/* Display the note's title, or derive it from the path if no title exists */}
-                        {p?.title ||
-                            p?.path?.replace(/\\/g, "/").split("/").pop()}
-                    </div>
-                );
+            // Determine if the current note is the actively selected one
+            const isActive = p.path === explorer.state.selectedFile?.path;
+            return (
+                <div
+                key={i} // Unique key for each list item
+                className={[
+                    "p-1",
+                    "cursor-pointer",
+                    "hover:bg-gray-100",
+                    "hover:drop-shadow-md",
+                    "hover:scale-102",
+                    "rounded",
+                    "transition-all",
+                    "min-h-8",
+                    "text-ellipsis",
+                    "whitespace-nowrap",
+                    "overflow-clip",
+                    isActive ? "bg-gray-100" : "", // Apply active styling if selected
+                ].join(" ")}
+                onClick={() => {
+                    // Only dispatch if a different note is clicked to avoid unnecessary re-renders
+                    if (!isActive) {
+                    explorer.dispatch({
+                        type: "OPEN_NOTE",
+                        payload: i, // Payload is the index of the clicked note
+                    });
+                    }
+                }}
+                >
+                {/* Display the note's title, or derive it from the path if no title exists */}
+                {p?.title ||
+                    p?.path?.replace(/\\/g, "/").split("/").pop()}
+                </div>
+            );
             })}
+            <style>
+            {`
+            /* Only round the bottom-right of the scrollbar thumb and track */
+            div::-webkit-scrollbar {
+                width: 8px;
+            }
+            div::-webkit-scrollbar-thumb {
+                background: #9ca3af;
+                border-radius: 0 0 12px 0;
+            }
+            div::-webkit-scrollbar-track {
+                background: transparent;
+                border-radius: 0 0 12px 0;
+            }
+            `}
+            </style>
         </div>
     );
 }

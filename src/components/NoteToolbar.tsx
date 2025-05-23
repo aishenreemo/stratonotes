@@ -33,6 +33,7 @@ function NoteToolbar() {
                 "m-1",
                 "border",
                 "border-black",
+                "rounded-lg",
             ].join(" ")}
         >
             {/* Save Note Button */}
@@ -79,6 +80,7 @@ function NoteToolbar() {
                         progress: undefined,
                         theme: "light",
                         transition: Bounce,
+                        className: "shadow-lg rounded-lg",
                     });
                 }}
             >
@@ -130,6 +132,7 @@ function NoteToolbar() {
                         draggable: true,
                         progress: undefined,
                         transition: Bounce,
+                        className: "shadow-lg rounded-lg",
                     });
                 }}
             >
@@ -181,6 +184,7 @@ function NoteToolbar() {
                         progress: undefined,
                         theme: "light",
                         transition: Bounce,
+                        className: "shadow-lg rounded-lg",
                     });
                 }}
             >

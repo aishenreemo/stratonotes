@@ -24,6 +24,7 @@
         "react-markdown": "^10.1.0",
         "react-toastify": "^11.0.5",
         "remark-gfm": "^4.0.1",
+        "stratonotes": "file:",
         "tailwindcss": "^4.1.4",
         "uuidv4": "^6.2.13"
     },

@@ -41,7 +41,10 @@ function Sidebar({
                 "overflow-hidden", // Hides content that overflows the sidebar's bounds
                 "flex", // Enables flexbox layout for children
                 "flex-col", // Arranges children in a column
-                "h-full", // Ensures the sidebar takes full height of its parent
+                // Ensures the sidebar takes full height of its parent
+                anchor === "LEFT" ? "rounded-r-2xl" : "rounded-l-2xl", // Rounded only on the side away from the edge
+                "bg-gray-200", // Background color
+                "dark:bg-gray-800", // Dark mode background color
             ].join(" ")}
             minWidth={isOpened ? 256 : 0} // Minimum width: 256px when open, 0px when closed
             maxWidth={512} // Maximum width allowed for resizing

@@ -60,7 +60,7 @@ function Editor() {
                 // Render a textarea for editing when in source mode
                 <textarea
                     ref={textareaRef}
-                    className="border w-full h-full outline-none resize-none p-4"
+                    className="border w-full h-full outline-none resize-none p-4 rounded-2xl shadow-2xl shadow-gray-500/50"
                     value={editor.state.content as string}
                     onChange={(e) =>
                         editor.dispatch({
@@ -78,7 +78,7 @@ function Editor() {
                             payload: "READING", // Explicitly set to reading mode on click (though already in it)
                         })
                     }
-                    className="markdown-body w-full h-full border p-4 overflow-y-auto"
+                    className="markdown-body w-full h-full border p-4 overflow-y-auto rounded-2xl shadow-2xl shadow-gray-500/50"
                 >
                     <MarkdownPreview
                         source={editor.state.content as string}

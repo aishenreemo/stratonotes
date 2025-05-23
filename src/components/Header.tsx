@@ -80,7 +80,7 @@ function Header() {
          </div>
          */}
 
-            <div className="flex items-center">
+            <div className="flex items-center bg-transparent">
                 {/* Button to close the application */}
                 <button
                     onClick={() => invoke("close_app")}
