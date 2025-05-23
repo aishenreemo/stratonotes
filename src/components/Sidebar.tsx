@@ -14,7 +14,7 @@ import { SidebarAnchor, useSidebar } from "../contexts/SidebarContext";
  * @param {SidebarAnchor} props.anchor - Specifies whether the sidebar is "LEFT" or "RIGHT" anchored.
  * @param {ReactNode} [props.children] - The content to be rendered inside the sidebar.
  *
- * @returns {React.Node} A `Resizable` component configured as a sidebar.
+ * @returns {React.ReactNode} A `Resizable` component configured as a sidebar.
  */
 function Sidebar({
     anchor,
@@ -22,7 +22,7 @@ function Sidebar({
 }: {
     anchor: SidebarAnchor;
     children?: ReactNode;
-}) {
+}): React.ReactNode {
     const sidebar = useSidebar(); // Access sidebar state and dispatch from context
 
     // Determine if the current sidebar instance is opened based on its anchor

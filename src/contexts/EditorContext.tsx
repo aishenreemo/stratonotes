@@ -7,7 +7,6 @@ import {
 } from "react";
 
 /**
- * @typedef {'SOURCE' | 'READING'} EditorMode
  * @description Represents the two possible modes for the editor:
  * - 'SOURCE': The editor displays the raw markdown text for editing.
  * - 'READING': The editor displays a rendered preview of the markdown content.
@@ -15,7 +14,6 @@ import {
 type EditorMode = "SOURCE" | "READING";
 
 /**
- * @typedef {object} EditorAction
  * @description Defines the possible actions that can be dispatched to the editor reducer.
  * - `SET_CONTENT`: Sets the entire content of the editor.
  * @property {'SET_CONTENT'} type - The action type.

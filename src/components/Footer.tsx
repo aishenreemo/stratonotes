@@ -5,10 +5,10 @@
  * @description A simple footer component intended for displaying application-wide information,
  * such as credits or copyright details. It occupies the full width at the bottom of the layout.
  *
- * @returns {React.Node} A `div` element serving as the application's footer,
+ * @returns {ReactNode} A `div` element serving as the application's footer,
  * containing a credit notice.
  */
-function Footer() {
+function Footer(): React.ReactNode {
     return (
         <div
             style={{

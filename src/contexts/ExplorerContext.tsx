@@ -7,12 +7,13 @@ import {
 } from "react";
 
 /**
- * @typedef {'FETCH_NOTES' | 'OPEN_NOTE'} ExplorerActionType
  * @description Defines the types of actions that can be dispatched to the explorer reducer.
  */
 type ExplorerAction =
     | { type: "FETCH_NOTES"; payload: Note[] }
-    | { type: "OPEN_NOTE"; payload: number };
+    | { type: "OPEN_NOTE"; payload: number }
+    | { type: "SET_QUERY"; payload: string };
+// | { type: "FILTER_NOTES"; payload: Note[]};
 
 /**
  * @interface Note
@@ -38,6 +39,7 @@ export interface Note {
 interface ExplorerState {
     files: Note[];
     selectedFile?: Note;
+    query: string;
 }
 
 /**
@@ -83,6 +85,13 @@ function explorerReducer(state: ExplorerState, action: ExplorerAction) {
                 };
             }
             return state; // Return current state if index is out of bounds
+
+        case "SET_QUERY":
+            return {
+                ...state,
+                query: action.payload.toLowerCase(),
+            };
+
         default:
             return state; // Return current state for unknown action types
     }
@@ -109,6 +118,7 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
     const [state, dispatch] = useReducer(explorerReducer, {
         selectedFile: undefined, // No file selected initially
         files: [], // Empty array of files initially
+        query: "", // Query is set to blank initially
     });
 
     return (
@@ -129,7 +139,7 @@ export function ExplorerProvider({ children }: { children: ReactNode }) {
  * @returns {ExplorerContextType} An object containing the current explorer state and the dispatch function.
  * @throws {Error} If `useExplorer` is called outside of an `ExplorerProvider`.
  */
-export function useExplorer() {
+export function useExplorer(): ExplorerContextType {
     const context = useContext(ExplorerContext);
 
     if (!context) {
