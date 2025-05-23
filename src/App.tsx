@@ -29,8 +29,11 @@ function App(): React.ReactNode {
         <div className="w-screen h-screen overflow-hidden">
             {/* ToastContainer for displaying notifications throughout the app */}
             <ToastContainer />
-            <Window width="80%" height="80%" className={windows.state.isOpened[2] ? "block" : "hidden"}>
-            </Window>
+            <Window
+                width="80%"
+                height="80%"
+                className={windows.state.isOpened[2] ? "block" : "hidden"}
+            ></Window>
 
             {/* Main application grid layout */}
             <div

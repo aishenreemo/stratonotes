@@ -48,7 +48,12 @@ function Ribbons(): React.ReactNode {
             </button>
 
             {/* Button for application settings */}
-            <button title="Settings" onClick={() => windows.dispatch({ type: "TOGGLE_OPENED", payload: 2 })}>
+            <button
+                title="Settings"
+                onClick={() =>
+                    windows.dispatch({ type: "TOGGLE_OPENED", payload: 2 })
+                }
+            >
                 <IoIosSettings />
             </button>
         </div>

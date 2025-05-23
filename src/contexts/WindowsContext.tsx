@@ -19,7 +19,7 @@ interface WindowsContextType {
 
 function windowsReducer(
     state: WindowsState,
-    action: WindowsAction,
+    action: WindowsAction
 ): WindowsState {
     const isOpened = [...state.isOpened];
     if (action.type === "TOGGLE_OPENED") {
@@ -27,7 +27,7 @@ function windowsReducer(
         return {
             ...state,
             isOpened,
-        }
+        };
     }
 
     return state;
