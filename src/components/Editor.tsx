@@ -55,12 +55,12 @@ function Editor(): React.ReactNode {
     }, [editor.state.mode]); // Depend on editor.state.mode to trigger focus when mode changes
 
     return (
-        <div className="p-1 m-1 w-auto h-auto overflow-hidden bg-background">
+        <div className="p-1 m-1 w-auto h-auto overflow-hidden bg-transparent">
             {isSourceMode ? (
                 // Render a textarea for editing when in source mode
                 <textarea
                     ref={textareaRef}
-                    className="border w-full h-full outline-none resize-none p-4 rounded-2xl shadow-2xl shadow-gray-500/50"
+                    className="bg-transparent border w-full h-full outline-none resize-none p-4 rounded-2xl shadow-2xl shadow-gray-500/50"
                     value={editor.state.content as string}
                     onChange={(e) =>
                         editor.dispatch({

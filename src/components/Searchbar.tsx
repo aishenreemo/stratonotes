@@ -19,7 +19,7 @@ function Searchbar(): React.ReactNode {
     );
 
     return (
-        <div className="searchbar-container p-1 m-1 w-auto h-10 border border-black flex items-center relative rounded-2xl shadow-2xl shadow-gray-500/50">
+        <div className="searchbar-container p-1 m-1 w-auto h-10 flex items-center relative rounded-2xl shadow-2xl shadow-gray-500/50">
             <MdSearch className="absolute left-2" />
             <input
                 placeholder="Search..."

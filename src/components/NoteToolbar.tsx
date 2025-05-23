@@ -31,8 +31,6 @@ function NoteToolbar(): React.ReactNode {
                 "h-10",
                 "p-1",
                 "m-1",
-                "border",
-                "border-black",
                 "rounded-lg",
             ].join(" ")}
         >

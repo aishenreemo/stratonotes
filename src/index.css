@@ -33,6 +33,7 @@ button {
     transition: border-color 0.25s;
     padding: 0.1em 0.25em;
     border-radius: 0.1rem;
+    background-color: #ffffff00;
 }
 
 button:hover {
@@ -218,11 +219,7 @@ div::-webkit-scrollbar-track {
     }
 
     button {
-        background-color: #f9f9f9;
-    }
-
-    textarea {
-        background-color: #ffffff;
+        background-color: #f9f9f944;
     }
 
     .markdown-body {
@@ -230,7 +227,7 @@ div::-webkit-scrollbar-track {
     }
 
     .searchbar-container {
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.2);
     }
 
     .container {

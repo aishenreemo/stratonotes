@@ -43,7 +43,7 @@ function Sidebar({
                 "flex-col", // Arranges children in a column
                 // Ensures the sidebar takes full height of its parent
                 anchor === "LEFT" ? "rounded-r-2xl" : "rounded-l-2xl", // Rounded only on the side away from the edge
-                "bg-gray-200", // Background color
+                "bg-transparent", // Background color
                 "dark:bg-gray-800", // Dark mode background color
             ].join(" ")}
             minWidth={isOpened ? 256 : 0} // Minimum width: 256px when open, 0px when closed
