@@ -7,7 +7,9 @@ import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
 import FileList from "./components/FileList";
 import AIPrompt from "./components/AIPrompt";
+import Window from "./components/Window";
 import { ToastContainer } from "react-toastify";
+import { useWindows } from "./contexts/WindowsContext";
 
 /**
  * App Component
@@ -21,10 +23,14 @@ import { ToastContainer } from "react-toastify";
  * @returns {React.ReactNode} The root `div` element containing the entire application UI.
  */
 function App(): React.ReactNode {
+    let windows = useWindows();
+
     return (
         <div className="w-screen h-screen overflow-hidden">
             {/* ToastContainer for displaying notifications throughout the app */}
             <ToastContainer />
+            <Window width="80%" height="80%" className={windows.state.isOpened[2] ? "block" : "hidden"}>
+            </Window>
 
             {/* Main application grid layout */}
             <div

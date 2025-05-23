@@ -1,9 +1,9 @@
 import { GoSidebarCollapse } from "react-icons/go";
 import { IoCloseCircle } from "react-icons/io5";
-import { useSidebar } from "../contexts/SidebarContext";
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
 import { useExplorer } from "../contexts/ExplorerContext";
+import { useWindows } from "../contexts/WindowsContext";
 
 /**
  * Header Component
@@ -17,7 +17,7 @@ import { useExplorer } from "../contexts/ExplorerContext";
  * @returns {React.ReactNode} A header element containing the application title and control buttons.
  */
 function Header(): React.ReactNode {
-    const sidebar = useSidebar();
+    const windows = useWindows();
     const explorer = useExplorer();
     const [title, setTitle] = useState("Stratonotes"); // Default application title
 
@@ -51,9 +51,9 @@ function Header(): React.ReactNode {
                 {/* Button to toggle the left sidebar's open state */}
                 <button
                     onClick={() =>
-                        sidebar.dispatch({
-                            anchor: "LEFT",
+                        windows.dispatch({
                             type: "TOGGLE_OPENED",
+                            payload: 0,
                         })
                     }
                     aria-label="Toggle left sidebar"
@@ -69,10 +69,10 @@ function Header(): React.ReactNode {
          <div className="flex items-center">
              <button
                  onClick={() =>
-                     sidebar.dispatch({
-                         anchor: "RIGHT",
-                         type: "TOGGLE_OPENED",
-                     })
+                      windows.dispatch({
+                          type: "TOGGLE_OPENED",
+                          payload: 1,
+                      })
                  }
              >
                  <GoSidebarExpand />

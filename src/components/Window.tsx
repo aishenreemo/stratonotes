@@ -3,15 +3,25 @@ import { ReactNode } from "react";
 function Window({
     width,
     height,
+    className,
     children,
 }: {
-    width: number;
-    height: number;
+    width: string;
+    height: string;
+    className: string;
     children?: ReactNode;
 }) {
     return (
         <div
-            className={`absolute w-[${width}%] h-[${height}%] border rounded-2xl`}
+            style={{
+                width,
+                height,
+            }}
+            className={[
+                "absolute top-[50%] left-[50%] transform-[translate(-50%,-50%)]",
+                "bg-foreground border border-background rounded-2xl z-10",
+                className || "",
+            ].join(" ")}
         >
             {children}
         </div>

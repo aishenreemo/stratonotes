@@ -2,6 +2,7 @@ import { IoIosSettings } from "react-icons/io";
 import { FaCode } from "react-icons/fa";
 import { FaMarkdown } from "react-icons/fa";
 import { useEditor } from "../contexts/EditorContext";
+import { useWindows } from "../contexts/WindowsContext";
 
 /**
  * Ribbons Component
@@ -16,6 +17,7 @@ import { useEditor } from "../contexts/EditorContext";
  */
 function Ribbons(): React.ReactNode {
     const editor = useEditor();
+    const windows = useWindows();
 
     return (
         <div
@@ -46,7 +48,7 @@ function Ribbons(): React.ReactNode {
             </button>
 
             {/* Button for application settings */}
-            <button title="Settings">
+            <button title="Settings" onClick={() => windows.dispatch({ type: "TOGGLE_OPENED", payload: 2 })}>
                 <IoIosSettings />
             </button>
         </div>
