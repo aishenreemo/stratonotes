@@ -32,7 +32,6 @@ function NoteToolbar(): React.ReactNode {
                 "p-1",
                 "m-1",
                 "rounded-lg",
-
             ].join(" ")}
         >
             {/* Save Note Button */}

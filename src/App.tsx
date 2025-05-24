@@ -7,7 +7,13 @@ import NoteToolbar from "./components/NoteToolbar";
 import Searchbar from "./components/Searchbar";
 import FileList from "./components/FileList";
 import AIPrompt from "./components/AIPrompt";
-import { ToastContainer } from "react-toastify";
+import Window from "./components/Window";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import { useWindows } from "./contexts/WindowsContext";
+import { useEffect } from "react";
+import { invoke } from "@tauri-apps/api/core";
+import { Note, useExplorer } from "./contexts/ExplorerContext";
+import { error } from "@tauri-apps/plugin-log";
 
 /**
  * App Component
@@ -21,10 +27,47 @@ import { ToastContainer } from "react-toastify";
  * @returns {React.ReactNode} The root `div` element containing the entire application UI.
  */
 function App(): React.ReactNode {
+    let windows = useWindows();
+    let explorer = useExplorer();
+
+    useEffect(() => {
+        (async function () {
+            try {
+                let title = await invoke("report");
+                let files = await invoke("fetch_notes") as Note[];
+
+                explorer.dispatch({
+                    type: "FETCH_NOTES",
+                    payload: files as Note[],
+                });
+
+                explorer.dispatch({ type: "OPEN_NOTE", payload: files.findIndex(f => f.title == title)});
+                toast("Created a report.", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    className: "shadow-lg rounded-lg",
+                });
+            } catch (err) {
+                error(`${err}`);
+            }
+        })();
+    }, []);
+
     return (
         <div className="w-screen h-screen overflow-hidden">
             {/* ToastContainer for displaying notifications throughout the app */}
             <ToastContainer />
+            <Window
+                width="80%"
+                height="80%"
+                className={windows.state.isOpened[2] ? "block" : "hidden"}
+            ></Window>
 
             {/* Cloud animation background */}
             <div className="clouds-container">

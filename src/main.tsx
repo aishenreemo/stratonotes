@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { EditorProvider } from "./contexts/EditorContext.tsx";
-import { SidebarProvider } from "./contexts/SidebarContext.tsx";
+import { WindowsProvider } from "./contexts/WindowsContext.tsx";
 import { ExplorerProvider } from "./contexts/ExplorerContext.tsx";
 
 /**
@@ -27,7 +27,7 @@ function AppProvider({ children }: { children: ReactNode }): React.ReactNode {
             {/* EditorProvider makes editor content and mode state available */}
             <EditorProvider>
                 {/* SidebarProvider makes sidebar open/closed state available */}
-                <SidebarProvider>{children}</SidebarProvider>
+                <WindowsProvider>{children}</WindowsProvider>
             </EditorProvider>
         </ExplorerProvider>
     );

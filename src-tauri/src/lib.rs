@@ -1,6 +1,13 @@
 use std::env;
 use std::error::Error;
+use std::fs;
+use std::path::PathBuf;
 
+use chrono::DateTime;
+use chrono::Datelike;
+use chrono::Local;
+use chrono::TimeDelta;
+use chrono::Weekday;
 use dotenv::dotenv;
 use log::info;
 use rig::completion::Prompt;
@@ -10,6 +17,7 @@ use tauri::command;
 use tauri::App;
 use tauri::Manager;
 use tauri::Runtime;
+use tauri::State;
 use tauri::Theme;
 use tauri::Window;
 use tauri_plugin_log::Builder;
@@ -43,7 +51,6 @@ fn setup_app<R: Runtime>(app: &mut App<R>) -> Result<()> {
     // `.ok()` converts the Result into an Option, ignoring potential errors if the file
     // does not exist or cannot be read.
     dotenv().ok();
-    // app.handle().set_theme(Some(tauri::Theme::Dark)); // This line is commented out and thus inactive.
 
     // Initialize the PathSettings with default values. These settings define
     // important file system paths for the application, such as where notes are stored.
@@ -58,12 +65,53 @@ fn setup_app<R: Runtime>(app: &mut App<R>) -> Result<()> {
         path_settings.create_dirs()?;
     }
 
-    // Manage the `path_settings` instance as Tauri application state.
-    // This makes `path_settings` accessible to any Tauri command via
-    // `tauri::State<'_, PathSettings>`.
     app.manage(path_settings);
 
     Ok(())
+}
+
+#[command]
+async fn report(path_settings: State<'_, PathSettings>) -> std::result::Result<String, String> {
+    let today = Local::now();
+    let today_formatted = today.format("%Y-%m-%d");
+    let summary_name= format!("{}.md", &today_formatted);
+    let summary_path= PathBuf::from(&summary_name);
+    let summary_note = path_settings.notes.clone().join(&summary_path);
+
+    if today.weekday() == Weekday::Sat && !summary_note.exists() {
+        let seven_days_ago = today - TimeDelta::days(7);
+        let files = fs::read_dir(&path_settings.notes).map_err(|e| format!("{e:?}"))?;
+        let files = files.filter(|f| f.is_ok());
+        let files = files.map(|f| f.unwrap().path());
+        let mut content = String::new();
+
+        for path in files {
+            let metadata = fs::metadata(&path).map_err(|e| format!("{e:?}"))?;
+            let created: DateTime<Local> = metadata.created().map_err(|e| format!("{e:?}"))?.into();
+
+            if created < seven_days_ago || created > today {
+                continue;
+            }
+
+            content.push_str(&fs::read_to_string(&path).map_err(|e| format!("{e:?}"))?);
+        }
+
+        let client = gemini::Client::from_env();
+        let agent = client
+            .agent(gemini::completion::GEMINI_2_0_FLASH)
+            .preamble("Summarize and create a report using the text in the prompt. Try to avoid referring to the author or refer to it as The text, be objective as much as possible and just simply state what is in the texts in a more narrative and seamless flow, as well as make it more digestible.")
+            .temperature(0.5)
+            .build();
+
+        let response = agent.prompt(&content).await.map_err(|e| e.to_string())?;
+        let note_content = format!("# Summary {}\n\n{}", &today_formatted, response);
+        fs::write(&summary_note, note_content).map_err(|e| e.to_string())?;
+
+        info!("Done creating a report. {summary_note:?}");
+        return Ok(format!("Summary {}", &today_formatted));
+    }
+
+    Err("No report for today.".into())
 }
 
 #[command]
@@ -157,6 +205,7 @@ pub fn run() {
             explorer::create_note, // Command to create a new note.
             close_app,             // Command to close the application.
             toggle_theme,
+            report,
         ])
         // Build and run the Tauri application, passing the generated build context.
         // `.expect()` will cause the application to panic if an unrecoverable error

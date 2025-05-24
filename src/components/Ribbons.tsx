@@ -2,6 +2,7 @@ import { IoIosSettings } from "react-icons/io";
 import { FaCloud, FaCode } from "react-icons/fa";
 import { FaMarkdown } from "react-icons/fa";
 import { useEditor } from "../contexts/EditorContext";
+import { useWindows } from "../contexts/WindowsContext";
 import { invoke } from "@tauri-apps/api/core";
 
 /**
@@ -17,6 +18,8 @@ import { invoke } from "@tauri-apps/api/core";
  */
 function Ribbons(): React.ReactNode {
     const editor = useEditor();
+    const windows = useWindows();
+
     return (
         <div
             style={{
@@ -49,7 +52,12 @@ function Ribbons(): React.ReactNode {
             </button>
 
             {/* Button for application settings */}
-            <button className= "bg-none" title="Settings">
+            <button
+                title="Settings"
+                onClick={() =>
+                    windows.dispatch({ type: "TOGGLE_OPENED", payload: 2 })
+                }
+            >
                 <IoIosSettings />
             </button>
         </div>

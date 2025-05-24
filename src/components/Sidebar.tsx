@@ -1,6 +1,6 @@
 import { Resizable } from "re-resizable";
 import { ReactNode } from "react";
-import { SidebarAnchor, useSidebar } from "../contexts/SidebarContext";
+import { useWindows } from "../contexts/WindowsContext";
 
 /**
  * Sidebar Component
@@ -20,16 +20,13 @@ function Sidebar({
     anchor,
     children,
 }: {
-    anchor: SidebarAnchor;
+    anchor: "LEFT" | "RIGHT";
     children?: ReactNode;
 }): React.ReactNode {
-    const sidebar = useSidebar(); // Access sidebar state and dispatch from context
+    const windows = useWindows(); // Access sidebar state and dispatch from context
 
     // Determine if the current sidebar instance is opened based on its anchor
-    const isOpened =
-        anchor === "LEFT"
-            ? sidebar.state.isLeftOpened
-            : sidebar.state.isRightOpened;
+    const isOpened = windows.state.isOpened[anchor == "LEFT" ? 0 : 1];
 
     return (
         <Resizable
