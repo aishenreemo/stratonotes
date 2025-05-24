@@ -92,15 +92,15 @@ function AIPrompt(): React.ReactNode {
     }
 
     return (
-        <div className="m-1 p-1 border border-black items-start w-auto h-20 flex flex-col">
-            <h1>Prompt AI</h1>
+        <div className="m-1 p-1 items-start w-auto h-20 flex flex-col border-b-2 border-white/30">
+            <h1 className="text-white text-shadow-lg">Prompt AI</h1>
             <div className="flex w-full justify-stretch items-stretch p-1 gap-1">
                 <input
                     required
                     disabled={disabled}
                     type="text"
                     placeholder="Write something..."
-                    className="border outline-none w-full p-1"
+                    className="bg-white/50 outline-none w-full p-1 rounded-sm"
                     value={promptText}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setPromptText(e.target.value)
@@ -108,8 +108,9 @@ function AIPrompt(): React.ReactNode {
                 />
                 <button
                     disabled={disabled}
-                    className="border"
+                    className="p-2 rounded-lg flex items-center justify-center"
                     onClick={onButtonPress}
+                    style={{ minWidth: "2rem", minHeight: "2rem", backgroundColor: "#ffffff50"}}
                 >
                     <FaArrowCircleRight />
                 </button>

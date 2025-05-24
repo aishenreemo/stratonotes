@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import { useExplorer } from "../contexts/ExplorerContext";
 
+
 /**
  * A search bar component that allows users to filter and find notes.
  *
@@ -18,9 +19,8 @@ function Searchbar(): React.ReactNode {
     );
 
     return (
-        <div className="p-1 m-1 w-auto h-10 border border-black flex items-center relative">
+        <div className="bg-white/50 p-1 m-1 w-auto h-10 flex items-center relative rounded-2xl shadow-sm shadow-gray-500/50">
             <MdSearch className="absolute left-2" />
-
             <input
                 placeholder="Search..."
                 type="text"

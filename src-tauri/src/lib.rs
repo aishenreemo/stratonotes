@@ -18,10 +18,12 @@ use tauri::App;
 use tauri::Manager;
 use tauri::Runtime;
 use tauri::State;
+use tauri::Theme;
+use tauri::Window;
 use tauri_plugin_log::Builder;
 
-mod settings;
 mod explorer;
+mod settings;
 
 /// @type Result
 /// @brief A custom type alias for `std::result::Result` that uses a boxed `dyn Error`
@@ -112,6 +114,19 @@ async fn report(path_settings: State<'_, PathSettings>) -> std::result::Result<S
     Err("No report for today.".into())
 }
 
+#[command]
+fn toggle_theme(window: Window) -> tauri::Result<()> {
+    let theme = window.theme();
+    let next_theme = match theme {
+        Ok(Theme::Light) => Theme::Dark,
+        Ok(Theme::Dark) => Theme::Light,
+        _ => Theme::Light,
+    };
+
+    window.set_theme(Some(next_theme))?;
+    Ok(())
+}
+
 /// @command close_app
 /// @brief Tauri command to terminate the application process.
 ///
@@ -182,13 +197,14 @@ pub fn run() {
         // Register all the Rust functions that can be invoked from the frontend.
         // `tauri::generate_handler!` automatically creates the necessary glue code.
         .invoke_handler(tauri::generate_handler![
-            prompt,               // Command for AI interaction.
+            prompt,                // Command for AI interaction.
             explorer::fetch_notes, // Command to retrieve all notes.
-            explorer::open_note,  // Command to read content of a specific note.
-            explorer::save_note,  // Command to save content to a specific note.
+            explorer::open_note,   // Command to read content of a specific note.
+            explorer::save_note,   // Command to save content to a specific note.
             explorer::delete_note, // Command to delete a specific note.
             explorer::create_note, // Command to create a new note.
-            close_app,            // Command to close the application.
+            close_app,             // Command to close the application.
+            toggle_theme,
             report,
         ])
         // Build and run the Tauri application, passing the generated build context.

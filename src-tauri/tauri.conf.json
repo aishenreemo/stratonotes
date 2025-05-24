@@ -39,6 +39,9 @@
                     ]
                 }
             ]
+        },
+        "trayIcon": {
+            "iconPath": "icons/icon.ico"
         }
     },
     "bundle": {

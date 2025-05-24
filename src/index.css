@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+@theme {
+    /* Utility Colors */
+    --color-dark-ink: #16294a;
+
+    /* OZON<e> Colors */
+    --color-strato-500: #466fb8;
+    --color-strato-400: #628EC4;
+    --color-strato-300: #88b1e5;
+    --color-strato-200: #9ac0ef;
+    --color-strato-100: #bdd7f8;
+
+    /* Atmosphere Colors */
+    --color-pastel-orange: #f3dcae;
+}
+
 :root {
     font-family:
         "Firacode Nerd Font", system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -27,10 +42,6 @@ a {
     text-decoration: inherit;
 }
 
-a:hover {
-    color: #535bf2;
-}
-
 button {
     outline: none;
     font-family: inherit;
@@ -38,32 +49,165 @@ button {
     transition: border-color 0.25s;
     padding: 0.1em 0.25em;
     border-radius: 0.1rem;
+    background-color: #ffffff00;
+    color: #ffffff;
 }
 
-button:hover {
-    border-color: #646cff;
+div::-webkit-scrollbar {
+    width: 8px;
 }
 
-button:focus,
-button:focus-visible {
-    outline: none;
+div::-webkit-scrollbar-thumb {
+    background: #9ca3af;
+    border-radius: 0 0 12px 0;
+}
+
+div::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 0 0 12px 0;
 }
 
 @media (prefers-color-scheme: light) {
     :root {
         color: #213547;
-        background-color: #ffffff;
+        background: linear-gradient(180deg, var(--color-strato-500) 5%, var(--color-blue-100) 50%, var(--color-pastel-orange) 80%);
+        position: relative;
+        overflow: hidden;
     }
 
-    a:hover {
-        color: #747bff;
+    /* Cloud Animation */
+    @keyframes float {
+        0% {
+            transform: translateX(-220px) scale(1);
+            opacity: 0.5;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateX(calc(100vw * 2)) scale(1.05);
+            opacity: 0.7;
+        }
     }
 
-    button {
-        background-color: #f9f9f9;
+    /* Cloud Container */
+    .clouds-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: -1;
+        overflow: hidden;
     }
-}
 
-.markdown-body {
-    background-color: transparent !important;
+    /* Cloud Element */
+    .cloud {
+        position: relative;
+        left: -1000;
+        width: 180px;
+        height: 100px;
+        opacity: 0.75;
+        animation: float 38s linear infinite;
+    }
+
+    .cloud::before {
+        position: inherit;
+        left: -1000;
+        width: 180px;
+        height: 100px;
+        content: url("/assets/images/cloud.png");
+        position: absolute;
+    }
+
+    /* .cloud::before,
+    .cloud::after {
+        content: '';
+        position: absolute;
+        background: linear-gradient(120deg, #fff 80%, #e3e9f7 100%);
+        border-radius: 50%;
+        opacity: 0.95;
+    }
+
+    .cloud::before {
+        width: 5px;
+        height: 110px;
+        left: 60px;
+        top: -40px;
+        box-shadow: 0 0 40px 10px #fff6;
+    }
+
+    .cloud::after {
+        width: 80px;
+        height: 80px;
+        left: 120px;
+        top: 10px;
+        box-shadow: 0 0 30px 8px #e3e9f744;
+    } */
+
+    /* Multiple clouds with different speeds and positions */
+    .cloud:nth-child(1) {
+        top: 18%;
+        left: -1220px;
+        animation-duration: 642s;
+        animation-delay: 0s;
+        opacity: 0.7;
+        filter: blur(1px);
+    }
+
+    .cloud:nth-child(2) {
+        top: 38%;
+        left: -1180px;
+        animation-duration: 255s;
+        animation-delay: 7s;
+        opacity: 0.85;
+        filter: blur(0.5px);
+    }
+
+    .cloud:nth-child(3) {
+        top: 62%;
+        left: -1200px;
+        animation-duration: 148s;
+        animation-delay: 13s;
+        opacity: 0.8;
+        filter: blur(1.2px);
+    }
+
+    .cloud:nth-child(4) {
+        top: 28%;
+        left: -1250px;
+        animation-duration: 260s;
+        animation-delay: 20s;
+        opacity: 0.6;
+        filter: blur(1.5px);
+    }
+
+    .cloud:nth-child(5) {
+        top: 6%;
+        left: -250px;
+        animation-duration: 510s;
+        animation-delay: 15s;
+        opacity: 0.9;
+        filter: blur(1.5px);
+    }
+
+
+    .decorative-cloud::before {
+        content: '';
+        position: absolute;
+        top: -40px;
+        left: 20px;
+        width: 120px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 60px;
+    }
+
 }

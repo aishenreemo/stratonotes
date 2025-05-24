@@ -8,7 +8,7 @@ import Searchbar from "./components/Searchbar";
 import FileList from "./components/FileList";
 import AIPrompt from "./components/AIPrompt";
 import Window from "./components/Window";
-import { toast, ToastContainer } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 import { useWindows } from "./contexts/WindowsContext";
 import { useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
@@ -42,7 +42,17 @@ function App(): React.ReactNode {
                 });
 
                 explorer.dispatch({ type: "OPEN_NOTE", payload: files.findIndex(f => f.title == title)});
-                toast("Created a report.");
+                toast("Created a report.", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    className: "shadow-lg rounded-lg",
+                });
             } catch (err) {
                 error(`${err}`);
             }
@@ -58,6 +68,27 @@ function App(): React.ReactNode {
                 height="80%"
                 className={windows.state.isOpened[2] ? "block" : "hidden"}
             ></Window>
+
+            {/* Cloud animation background */}
+            <div className="clouds-container">
+                <div className="cloud dark:hidden" style={{ top: "20%", animationDuration: '35s' }}></div>
+                <div className="cloud dark:hidden" style={{ top: "40%", animationDuration: '45s', animationDelay: '5s' }}></div>
+                <div className="cloud dark:hidden" style={{ top: "60%", animationDuration: '40s', animationDelay: '10s' }}></div>
+
+                {/* Decorative clouds in lower left and lower right */}
+                <img
+                    src="/assets/images/decorative_clouds.png"
+                    alt=""
+                    className="fixed left-0 bottom-0
+                        w-full
+                        h-auto
+                        dark:hidden
+                        pointer-events-none
+                        z-[-1]
+                        transition-all duration-300
+                        object-cover"
+                />
+            </div>
 
             {/* Main application grid layout */}
             <div

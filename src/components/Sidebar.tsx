@@ -32,13 +32,19 @@ function Sidebar({
         <Resizable
             className={[
                 "box-border", // Ensures padding and border are included in the element's total width and height
-                "border", // Adds a border around the sidebar
+                "border-2", // Adds a border around the sidebar
                 "transition-all", // Smooth transition for size changes
                 "0.05s", // Transition duration
                 "overflow-hidden", // Hides content that overflows the sidebar's bounds
                 "flex", // Enables flexbox layout for children
                 "flex-col", // Arranges children in a column
-                "h-full", // Ensures the sidebar takes full height of its parent
+                // Ensures the sidebar takes full height of its parent
+                anchor === "LEFT" ? "rounded-r-2xl" : "rounded-l-2xl", // Rounded only on the side away from the edge
+                "bg-transparent", // Background color
+                "border-l-0",
+                "border-t-0",
+                "border-b-0",
+                "border-white/50",
             ].join(" ")}
             minWidth={isOpened ? 256 : 0} // Minimum width: 256px when open, 0px when closed
             maxWidth={512} // Maximum width allowed for resizing
