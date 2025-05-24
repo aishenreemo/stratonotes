@@ -38,6 +38,9 @@ function NoteToolbar(): React.ReactNode {
             {/* Save Note Button */}
             <button
                 title="Save note"
+                style={{
+                    backgroundColor: "#ffffff50",
+                }}
                 className={[
                     "flex",
                     "flex-grow",
@@ -49,7 +52,8 @@ function NoteToolbar(): React.ReactNode {
                     "hover:scale-105",
                     "rounded",
                     "transition-all",
-                    "text-[#466fb8]"
+                    "text-[#466fb8]",
+                    "text-shadow-stone-950"
                 ].join(" ")}
                 onClick={async () => {
                     await invoke("save_note", {
@@ -89,6 +93,9 @@ function NoteToolbar(): React.ReactNode {
             {/* Delete Note Button */}
             <button
                 title="Delete note"
+                style={{
+                    backgroundColor: "#ffffff50",
+                }}
                 className={[
                     "flex",
                     "flex-grow",
@@ -141,6 +148,9 @@ function NoteToolbar(): React.ReactNode {
             {/* Create New Note Button */}
             <button
                 title="Create new note"
+                style={{
+                    backgroundColor: "#ffffff50",
+                }}
                 className={[
                     "bg-white",
                     "flex",

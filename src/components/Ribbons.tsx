@@ -22,7 +22,7 @@ function Ribbons(): React.ReactNode {
             style={{
                 gridColumn: "1 / 2", // Positions the component in the first column of a grid layout
             }}
-            className="flex flex-col items-center py-2 border-r w-8 gap-2" // Styling for vertical alignment, padding, border, width, and spacing
+            className="flex flex-col items-center py-2 border-r-2 border-white/50 w-8 gap-2" // Styling for vertical alignment, padding, border, width, and spacing
         >
             {/*
          <button>
@@ -49,7 +49,7 @@ function Ribbons(): React.ReactNode {
             </button>
 
             {/* Button for application settings */}
-            <button title="Settings">
+            <button className= "bg-none" title="Settings">
                 <IoIosSettings />
             </button>
         </div>

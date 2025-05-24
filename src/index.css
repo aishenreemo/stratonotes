@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme {
+    /* Utility Colors */
+    --color-dark-ink: #16294a;
+
     /* OZON<e> Colors */
     --color-strato-500: #466fb8;
     --color-strato-400: #628EC4;
@@ -41,16 +44,8 @@ button {
     transition: border-color 0.25s;
     padding: 0.1em 0.25em;
     border-radius: 0.1rem;
-    background-color: #ffffff33;
-}
-
-button:hover {
-    border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-    outline: none;
+    background-color: #ffffff00;
+    color: #ffffff;
 }
 
 div::-webkit-scrollbar {
@@ -114,7 +109,7 @@ div::-webkit-scrollbar-track {
         left: -1000;
         width: 180px;
         height: 100px;
-        opacity: 0.85;
+        opacity: 0.75;
         animation: float 38s linear infinite;
     }
 
@@ -125,7 +120,6 @@ div::-webkit-scrollbar-track {
         height: 100px;
         content: url("/assets/images/cloud.png");
         position: absolute;
-
     }
 
     /* .cloud::before,

@@ -36,11 +36,12 @@ function FileList(): React.ReactNode {
     return (
         <div
             className={[
+            "border-t-2",
+            "border-white/30",
             "flex flex-col gap-1",
             "mx-2",
             "my-2",
             "p-2 pr-6",
-            "rounded-lg",
             "w-auto",
             "h-10",
             "flex-grow",
@@ -77,6 +78,7 @@ function FileList(): React.ReactNode {
                                 "p-1",
                                 "cursor-pointer",
                                 "hover:bg-gray-100",
+                                "dark:hover:bg-gray-100/30",
                                 "hover:drop-shadow-md",
                                 "hover:scale-102",
                                 "rounded",

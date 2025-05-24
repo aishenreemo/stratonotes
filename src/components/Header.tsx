@@ -42,7 +42,7 @@ function Header(): React.ReactNode {
     return (
         <div
             data-tauri-drag-region // Enables window dragging
-            className="flex border-b p-1 gap-1"
+            className="flex border-b-2 border-white/30 p-1 gap-1 text-shadow-lg"
             style={{
                 gridColumn: "1 / 5", // Spans across all columns in a grid layout
             }}
@@ -63,7 +63,7 @@ function Header(): React.ReactNode {
             </div>
 
             {/* Display the dynamic application/note title */}
-            <div className="mx-auto">{title}</div>
+            <div className="mx-auto text-white select-none">{title}</div>
 
             {/*
          <div className="flex items-center">

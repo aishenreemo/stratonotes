@@ -55,7 +55,7 @@ function Editor(): React.ReactNode {
     }, [editor.state.mode]); // Depend on editor.state.mode to trigger focus when mode changes
 
     return (
-        <div className="p-1 m-1 w-auto h-auto overflow-hidden rounded-2xl bg-gray-100/50 dark:bg-gray-100/5 border-2 border-strato-500">
+        <div className="p-1 m-1 w-auto h-auto overflow-hidden rounded-2xl bg-gray-100/50 dark:bg-gray-100/5 border border-white/30">
             {isSourceMode ? (
                 // Render a textarea for editing when in source mode
                 <textarea
