@@ -10,10 +10,12 @@ use tauri::command;
 use tauri::App;
 use tauri::Manager;
 use tauri::Runtime;
+use tauri::Theme;
+use tauri::Window;
 use tauri_plugin_log::Builder;
 
-mod settings;
 mod explorer;
+mod settings;
 
 /// @type Result
 /// @brief A custom type alias for `std::result::Result` that uses a boxed `dyn Error`
@@ -61,6 +63,19 @@ fn setup_app<R: Runtime>(app: &mut App<R>) -> Result<()> {
     // `tauri::State<'_, PathSettings>`.
     app.manage(path_settings);
 
+    Ok(())
+}
+
+#[command]
+fn toggle_theme(window: Window) -> tauri::Result<()> {
+    let theme = window.theme();
+    let next_theme = match theme {
+        Ok(Theme::Light) => Theme::Dark,
+        Ok(Theme::Dark) => Theme::Light,
+        _ => Theme::Light,
+    };
+
+    window.set_theme(Some(next_theme))?;
     Ok(())
 }
 
@@ -134,13 +149,14 @@ pub fn run() {
         // Register all the Rust functions that can be invoked from the frontend.
         // `tauri::generate_handler!` automatically creates the necessary glue code.
         .invoke_handler(tauri::generate_handler![
-            prompt,               // Command for AI interaction.
+            prompt,                // Command for AI interaction.
             explorer::fetch_notes, // Command to retrieve all notes.
-            explorer::open_note,  // Command to read content of a specific note.
-            explorer::save_note,  // Command to save content to a specific note.
+            explorer::open_note,   // Command to read content of a specific note.
+            explorer::save_note,   // Command to save content to a specific note.
             explorer::delete_note, // Command to delete a specific note.
             explorer::create_note, // Command to create a new note.
-            close_app,            // Command to close the application.
+            close_app,             // Command to close the application.
+            toggle_theme,
         ])
         // Build and run the Tauri application, passing the generated build context.
         // `.expect()` will cause the application to panic if an unrecoverable error

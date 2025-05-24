@@ -85,7 +85,7 @@ function FileList(): React.ReactNode {
                                 "text-ellipsis",
                                 "whitespace-nowrap",
                                 "overflow-clip",
-                                isActive ? "bg-gray-100" : "", // Apply active styling if selected
+                                isActive ? "bg-gray-100/30" : "", // Apply active styling if selected
                             ].join(" ")}
                             onClick={() => {
                                 // Only dispatch if a different note is clicked to avoid unnecessary re-renders

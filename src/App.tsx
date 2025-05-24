@@ -28,9 +28,9 @@ function App(): React.ReactNode {
 
             {/* Cloud animation background */}
             <div className="clouds-container">
-                <div className="cloud" style={{ top: '20%', animationDuration: '35s' }}></div>
-                <div className="cloud" style={{ top: '40%', animationDuration: '45s', animationDelay: '5s' }}></div>
-                <div className="cloud" style={{ top: '60%', animationDuration: '40s', animationDelay: '10s' }}></div>
+                <div className="cloud dark:hidden" style={{ top: "20%", animationDuration: '35s' }}></div>
+                <div className="cloud dark:hidden" style={{ top: "40%", animationDuration: '45s', animationDelay: '5s' }}></div>
+                <div className="cloud dark:hidden" style={{ top: "60%", animationDuration: '40s', animationDelay: '10s' }}></div>
 
                 {/* Decorative clouds in lower left and lower right */}
                 <img
@@ -39,9 +39,9 @@ function App(): React.ReactNode {
                     className="fixed left-0 bottom-0
                         w-full
                         h-auto
-                        opacity-100
+                        dark:hidden
                         pointer-events-none
-                        z-0
+                        z-[-1]
                         transition-all duration-300
                         object-cover"
                 />

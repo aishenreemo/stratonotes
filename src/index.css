@@ -34,6 +34,24 @@ a {
     text-decoration: inherit;
 }
 
+button {
+    outline: none;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    padding: 0.1em 0.25em;
+    border-radius: 0.1rem;
+    background-color: #ffffff33;
+}
+
+button:hover {
+    border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+    outline: none;
+}
 
 div::-webkit-scrollbar {
     width: 8px;

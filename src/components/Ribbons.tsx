@@ -1,7 +1,8 @@
 import { IoIosSettings } from "react-icons/io";
-import { FaCode } from "react-icons/fa";
+import { FaCloud, FaCode } from "react-icons/fa";
 import { FaMarkdown } from "react-icons/fa";
 import { useEditor } from "../contexts/EditorContext";
+import { invoke } from "@tauri-apps/api/core";
 
 /**
  * Ribbons Component
@@ -16,7 +17,6 @@ import { useEditor } from "../contexts/EditorContext";
  */
 function Ribbons(): React.ReactNode {
     const editor = useEditor();
-
     return (
         <div
             style={{
@@ -32,6 +32,9 @@ function Ribbons(): React.ReactNode {
              <GoNote />
          </button>
          */}
+            <button onClick={() => invoke("toggle_theme")}>
+                <FaCloud />
+            </button>
             {/* Button to toggle between Source (Code) and Markdown (Preview) modes */}
             <button
                 onClick={() => editor.dispatch({ type: "TOGGLE_MODE" })}
