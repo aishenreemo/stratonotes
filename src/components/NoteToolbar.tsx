@@ -52,7 +52,7 @@ function NoteToolbar(): React.ReactNode {
                     "rounded",
                     "transition-all",
                     "text-[#466fb8]",
-                    "text-shadow-stone-950"
+                    "text-shadow-stone-950",
                 ].join(" ")}
                 onClick={async () => {
                     await invoke("save_note", {
@@ -106,7 +106,7 @@ function NoteToolbar(): React.ReactNode {
                     "transition-all",
                     "hover:scale-105",
                     "rounded",
-                    "text-[#466fb8]"
+                    "text-[#466fb8]",
                 ].join(" ")}
                 onClick={async () => {
                     if (explorer.state.selectedFile === undefined) {
@@ -162,7 +162,7 @@ function NoteToolbar(): React.ReactNode {
                     "hover:scale-105",
                     "rounded",
                     "transition-all",
-                    "text-[#466fb8]"
+                    "text-[#466fb8]",
                 ].join(" ")}
                 onClick={async () => {
                     const filepath = await invoke("create_note", {

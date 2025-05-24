@@ -34,14 +34,17 @@ function App(): React.ReactNode {
         (async function () {
             try {
                 let title = await invoke("report");
-                let files = await invoke("fetch_notes") as Note[];
+                let files = (await invoke("fetch_notes")) as Note[];
 
                 explorer.dispatch({
                     type: "FETCH_NOTES",
                     payload: files as Note[],
                 });
 
-                explorer.dispatch({ type: "OPEN_NOTE", payload: files.findIndex(f => f.title == title)});
+                explorer.dispatch({
+                    type: "OPEN_NOTE",
+                    payload: files.findIndex((f) => f.title == title),
+                });
                 toast("Created a report.", {
                     position: "bottom-right",
                     autoClose: 2000,
@@ -71,9 +74,26 @@ function App(): React.ReactNode {
 
             {/* Cloud animation background */}
             <div className="clouds-container">
-                <div className="cloud dark:hidden" style={{ top: "20%", animationDuration: '35s' }}></div>
-                <div className="cloud dark:hidden" style={{ top: "40%", animationDuration: '45s', animationDelay: '5s' }}></div>
-                <div className="cloud dark:hidden" style={{ top: "60%", animationDuration: '40s', animationDelay: '10s' }}></div>
+                <div
+                    className="cloud dark:hidden"
+                    style={{ top: "20%", animationDuration: "35s" }}
+                ></div>
+                <div
+                    className="cloud dark:hidden"
+                    style={{
+                        top: "40%",
+                        animationDuration: "45s",
+                        animationDelay: "5s",
+                    }}
+                ></div>
+                <div
+                    className="cloud dark:hidden"
+                    style={{
+                        top: "60%",
+                        animationDuration: "40s",
+                        animationDelay: "10s",
+                    }}
+                ></div>
 
                 {/* Decorative clouds in lower left and lower right */}
                 <img

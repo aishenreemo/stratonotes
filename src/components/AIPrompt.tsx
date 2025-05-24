@@ -110,7 +110,11 @@ function AIPrompt(): React.ReactNode {
                     disabled={disabled}
                     className="p-2 rounded-lg flex items-center justify-center"
                     onClick={onButtonPress}
-                    style={{ minWidth: "2rem", minHeight: "2rem", backgroundColor: "#ffffff50"}}
+                    style={{
+                        minWidth: "2rem",
+                        minHeight: "2rem",
+                        backgroundColor: "#ffffff50",
+                    }}
                 >
                     <FaArrowCircleRight />
                 </button>

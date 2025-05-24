@@ -6,7 +6,7 @@
 
     /* OZON<e> Colors */
     --color-strato-500: #466fb8;
-    --color-strato-400: #628EC4;
+    --color-strato-400: #628ec4;
     --color-strato-300: #88b1e5;
     --color-strato-200: #9ac0ef;
     --color-strato-100: #bdd7f8;
@@ -70,7 +70,12 @@ div::-webkit-scrollbar-track {
 @media (prefers-color-scheme: light) {
     :root {
         color: #213547;
-        background: linear-gradient(180deg, var(--color-strato-500) 5%, var(--color-blue-100) 50%, var(--color-pastel-orange) 80%);
+        background: linear-gradient(
+            180deg,
+            var(--color-strato-500) 5%,
+            var(--color-blue-100) 50%,
+            var(--color-pastel-orange) 80%
+        );
         position: relative;
         overflow: hidden;
     }
@@ -198,9 +203,8 @@ div::-webkit-scrollbar-track {
         filter: blur(1.5px);
     }
 
-
     .decorative-cloud::before {
-        content: '';
+        content: "";
         position: absolute;
         top: -40px;
         left: 20px;
@@ -209,5 +213,4 @@ div::-webkit-scrollbar-track {
         background: rgba(255, 255, 255, 0.4);
         border-radius: 60px;
     }
-
 }

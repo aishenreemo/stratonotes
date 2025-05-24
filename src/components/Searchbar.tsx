@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import { useExplorer } from "../contexts/ExplorerContext";
 
-
 /**
  * A search bar component that allows users to filter and find notes.
  *

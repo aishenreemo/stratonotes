@@ -36,24 +36,24 @@ function FileList(): React.ReactNode {
     return (
         <div
             className={[
-            "border-t-2",
-            "border-white/30",
-            "flex flex-col gap-1",
-            "mx-2",
-            "my-2",
-            "p-2 pr-6",
-            "w-auto",
-            "h-10",
-            "flex-grow",
-            "overflow-y-scroll",
-            "overflow-x-hidden",
-            "scrollbar-thin",
-            "scrollbar-thumb-gray-400",
-            "scrollbar-thumb-rounded-br", // Rounds only bottom-right of thumb
+                "border-t-2",
+                "border-white/30",
+                "flex flex-col gap-1",
+                "mx-2",
+                "my-2",
+                "p-2 pr-6",
+                "w-auto",
+                "h-10",
+                "flex-grow",
+                "overflow-y-scroll",
+                "overflow-x-hidden",
+                "scrollbar-thin",
+                "scrollbar-thumb-gray-400",
+                "scrollbar-thumb-rounded-br", // Rounds only bottom-right of thumb
             ].join(" ")}
             style={{
-            scrollbarColor: "#9ca3af transparent", // gray-400 thumb, transparent track
-            scrollbarWidth: "thin",
+                scrollbarColor: "#9ca3af transparent", // gray-400 thumb, transparent track
+                scrollbarWidth: "thin",
             }}
         >
             {/* Map over the files in the explorer state to render each note */}
