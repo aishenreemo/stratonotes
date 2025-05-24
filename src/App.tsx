@@ -8,8 +8,12 @@ import Searchbar from "./components/Searchbar";
 import FileList from "./components/FileList";
 import AIPrompt from "./components/AIPrompt";
 import Window from "./components/Window";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useWindows } from "./contexts/WindowsContext";
+import { useEffect } from "react";
+import { invoke } from "@tauri-apps/api/core";
+import { Note, useExplorer } from "./contexts/ExplorerContext";
+import { error } from "@tauri-apps/plugin-log";
 
 /**
  * App Component
@@ -24,6 +28,26 @@ import { useWindows } from "./contexts/WindowsContext";
  */
 function App(): React.ReactNode {
     let windows = useWindows();
+    let explorer = useExplorer();
+
+    useEffect(() => {
+        (async function () {
+            try {
+                let title = await invoke("report");
+                let files = await invoke("fetch_notes") as Note[];
+
+                explorer.dispatch({
+                    type: "FETCH_NOTES",
+                    payload: files as Note[],
+                });
+
+                explorer.dispatch({ type: "OPEN_NOTE", payload: files.findIndex(f => f.title == title)});
+                toast("Created a report.");
+            } catch (err) {
+                error(`${err}`);
+            }
+        })();
+    }, []);
 
     return (
         <div className="w-screen h-screen overflow-hidden">
