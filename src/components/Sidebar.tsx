@@ -44,7 +44,10 @@ function Sidebar({
                 // Ensures the sidebar takes full height of its parent
                 anchor === "LEFT" ? "rounded-r-2xl" : "rounded-l-2xl", // Rounded only on the side away from the edge
                 "bg-transparent", // Background color
-                "dark:bg-gray-800", // Dark mode background color
+                "border-l-0",
+                "border-t-0",
+                "border-b-0",
+                "shadow-md"
             ].join(" ")}
             minWidth={isOpened ? 256 : 0} // Minimum width: 256px when open, 0px when closed
             maxWidth={512} // Maximum width allowed for resizing

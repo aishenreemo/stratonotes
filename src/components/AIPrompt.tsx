@@ -94,13 +94,13 @@ function AIPrompt(): React.ReactNode {
     return (
         <div className="m-1 p-1 items-start w-auto h-20 flex flex-col rounded-lg">
             <h1>Prompt AI</h1>
-            <div className="flex w-full justify-stretch items-stretch p-1 gap-1">   
+            <div className="flex w-full justify-stretch items-stretch p-1 gap-1">
                 <input
                     required
                     disabled={disabled}
                     type="text"
                     placeholder="Write something..."
-                    className="searchbar-container outline-none w-full p-1 rounded-lg"
+                    className="bg-white/50 outline-none w-full p-1 rounded-lg"
                     value={promptText}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setPromptText(e.target.value)

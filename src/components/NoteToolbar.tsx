@@ -32,13 +32,13 @@ function NoteToolbar(): React.ReactNode {
                 "p-1",
                 "m-1",
                 "rounded-lg",
+
             ].join(" ")}
         >
             {/* Save Note Button */}
             <button
                 title="Save note"
                 className={[
-                    "bg-white",
                     "flex",
                     "flex-grow",
                     "justify-center",
@@ -49,6 +49,7 @@ function NoteToolbar(): React.ReactNode {
                     "hover:scale-105",
                     "rounded",
                     "transition-all",
+                    "text-[#466fb8]"
                 ].join(" ")}
                 onClick={async () => {
                     await invoke("save_note", {
@@ -89,7 +90,6 @@ function NoteToolbar(): React.ReactNode {
             <button
                 title="Delete note"
                 className={[
-                    "bg-white",
                     "flex",
                     "flex-grow",
                     "justify-center",
@@ -100,6 +100,7 @@ function NoteToolbar(): React.ReactNode {
                     "transition-all",
                     "hover:scale-105",
                     "rounded",
+                    "text-[#466fb8]"
                 ].join(" ")}
                 onClick={async () => {
                     if (explorer.state.selectedFile === undefined) {
@@ -141,17 +142,18 @@ function NoteToolbar(): React.ReactNode {
             <button
                 title="Create new note"
                 className={[
-                    "bg-black", // Changed to black for contrast
+                    "bg-white",
                     "flex",
                     "flex-grow",
                     "justify-center",
                     "items-center",
                     "cursor-pointer",
-                    "hover:bg-gray-700", // Darker hover for black background
+                    "hover:bg-white", // Darker hover for black background
                     "hover:drop-shadow-sm",
                     "hover:scale-105",
                     "rounded",
                     "transition-all",
+                    "text-[#466fb8]"
                 ].join(" ")}
                 onClick={async () => {
                     const filepath = await invoke("create_note", {
